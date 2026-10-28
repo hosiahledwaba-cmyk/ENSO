@@ -24,7 +24,9 @@ def test_security_incidents_list(client: TestClient) -> None:
     assert "SIMULATED_EXPERIMENT" in classifications
 
     # Check that simulations are explicitly marked with disclaimers
-    sim_incidents = [i for i in data["incidents"] if i["epistemic_classification"] == "SIMULATED_EXPERIMENT"]
+    sim_incidents = [
+        i for i in data["incidents"] if i["epistemic_classification"] == "SIMULATED_EXPERIMENT"
+    ]
     assert len(sim_incidents) >= 2
     for sim in sim_incidents:
         assert "SIMULATION" in sim["subsystem"] or "SIMULATED" in sim["epistemic_classification"]
@@ -50,7 +52,9 @@ def test_security_incidents_filtering(client: TestClient) -> None:
     res_sim = client.get("/api/v1/security/incidents?classification=SIMULATED_EXPERIMENT")
     assert res_sim.status_code == 200
     data_sim = res_sim.json()
-    assert all(i["epistemic_classification"] == "SIMULATED_EXPERIMENT" for i in data_sim["incidents"])
+    assert all(
+        i["epistemic_classification"] == "SIMULATED_EXPERIMENT" for i in data_sim["incidents"]
+    )
 
 
 def test_security_summary_endpoint(client: TestClient) -> None:

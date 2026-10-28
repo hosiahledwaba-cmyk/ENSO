@@ -7,6 +7,7 @@ import type {
   SimulationScenarioResultItem,
   SimulationScenarioMetadata,
   DefensiveInspectionReportItem,
+  SimulationConfigItem,
 } from '../api/client'
 import { ErrorBoundary } from '../components/ErrorBoundary'
 
@@ -76,7 +77,7 @@ export function DiagnosticsView({ api, apiBaseUrl }: DiagnosticsViewProps) {
     setError(null)
     try {
       const res = await api.simulateDefenseScenario({
-        scenario: selectedScenarioId as any,
+        scenario: selectedScenarioId as SimulationConfigItem['scenario'],
         seed: simSeed,
         perturbation_magnitude: simMagnitude,
         injection_ratio: simRatio,

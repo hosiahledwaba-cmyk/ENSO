@@ -376,4 +376,3 @@ async def get_action_audit_log(action_id: str, limit: int = 50) -> dict[str, Any
         "count": len(entries),
         "audit_trail": entries,
     }
-

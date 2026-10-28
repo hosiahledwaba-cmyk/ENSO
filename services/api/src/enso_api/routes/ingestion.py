@@ -91,21 +91,23 @@ async def get_ingestion_history(
     records = await db_list_ingestion_logs(limit=limit, source_id=source_id)
     mapped = []
     for r in records:
-        mapped.append({
-            "log_id": str(r["id"]),
-            "job_id": r["job_id"] or "unknown",
-            "source_id": r["source_id"],
-            "status": r["lifecycle_stage"],
-            "start_time": r["created_at"],
-            "end_time": r["created_at"],
-            "records_added": r["records_inserted"],
-            "records_updated": r["records_updated"],
-            "latest_observation": r["latest_date_ingested"],
-            "validation_status": "VALIDATED" if not r["error_message"] else "FAILED",
-            "warnings": r["validation_warnings"] or [],
-            "error_message": r["error_message"],
-            "checksum_sha256": r["raw_artifact_sha256"],
-        })
+        mapped.append(
+            {
+                "log_id": str(r["id"]),
+                "job_id": r["job_id"] or "unknown",
+                "source_id": r["source_id"],
+                "status": r["lifecycle_stage"],
+                "start_time": r["created_at"],
+                "end_time": r["created_at"],
+                "records_added": r["records_inserted"],
+                "records_updated": r["records_updated"],
+                "latest_observation": r["latest_date_ingested"],
+                "validation_status": "VALIDATED" if not r["error_message"] else "FAILED",
+                "warnings": r["validation_warnings"] or [],
+                "error_message": r["error_message"],
+                "checksum_sha256": r["raw_artifact_sha256"],
+            }
+        )
     return mapped
 
 

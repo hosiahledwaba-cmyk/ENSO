@@ -253,9 +253,7 @@ def _run_training_sync(parameters: dict[str, Any]) -> dict[str, Any]:
     )
 
     baseline_bs = (
-        manifest.baseline_holdout_metrics.brier_score
-        if manifest.baseline_holdout_metrics
-        else 0.0
+        manifest.baseline_holdout_metrics.brier_score if manifest.baseline_holdout_metrics else 0.0
     )
     logistic_bs = manifest.holdout_metrics.brier_score if manifest.holdout_metrics else 0.0
     bss = manifest.holdout_bss or 0.0

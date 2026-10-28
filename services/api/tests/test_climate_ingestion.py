@@ -2,11 +2,9 @@
 
 from __future__ import annotations
 
-import pytest
 from fastapi.testclient import TestClient
 
 from enso_api.ingestion.coordinator import (
-    ChirpsRainfallProvider,
     ClimateIngestionCoordinator,
     NoaaNino34Provider,
     NoaaOniProvider,
@@ -68,7 +66,7 @@ def test_noaa_soi_provider_parsing() -> None:
     assert records[0]["month"] == 1
     assert records[0]["soi"] == 1.5
     # Latest valid in 2026 is month 9 (-2.0)
-    rec_sep_2026 = [r for r in records if r["year"] == 2026 and r["month"] == 9][0]
+    rec_sep_2026 = next(r for r in records if r["year"] == 2026 and r["month"] == 9)
     assert rec_sep_2026["soi"] == -2.0
 
 

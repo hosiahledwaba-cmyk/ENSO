@@ -52,7 +52,9 @@ def _load_quarantine_incidents() -> list[SecurityIncidentItem]:
                         title=f"Model Artefact Quarantined: {d.get('model_id')}",
                         description=f"Model quarantined due to {d.get('quarantine_reason')}. Observed digest mismatch or verification failure.",
                         detection_rule="ModelQuarantineManager SHA-256 Pre-Load Integrity Gate",
-                        affected_asset=d.get("original_model_dir", "models/logistic_regression_baseline"),
+                        affected_asset=d.get(
+                            "original_model_dir", "models/logistic_regression_baseline"
+                        ),
                         remediation_status=d.get("review_status", "PENDING_REVIEW"),
                         epistemic_classification="OPERATIONAL_TELEMETRY",
                         technical_details={
@@ -211,7 +213,9 @@ def list_security_incidents(
     if subsystem:
         results = [i for i in results if i.subsystem.upper() == subsystem.upper()]
     if classification:
-        results = [i for i in results if i.epistemic_classification.upper() == classification.upper()]
+        results = [
+            i for i in results if i.epistemic_classification.upper() == classification.upper()
+        ]
 
     return {
         "status": "operational",

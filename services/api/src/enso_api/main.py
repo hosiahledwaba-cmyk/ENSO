@@ -44,14 +44,15 @@ logger = logging.getLogger("enso_api")
 async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     settings: Settings = app.state.settings
     await init_db(settings)
-    
+
     # Initialize and start persistent daily climate data ingestion scheduler
     from enso_api.ingestion import get_ingestion_scheduler
+
     scheduler = get_ingestion_scheduler()
     scheduler.start()
-    
+
     yield
-    
+
     scheduler.shutdown()
     await close_db()
 

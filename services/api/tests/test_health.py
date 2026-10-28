@@ -1,8 +1,9 @@
 from __future__ import annotations
 
 import pytest
-from enso_api import __version__
 from fastapi.testclient import TestClient
+
+from enso_api import __version__
 
 
 def test_health_returns_ok(client: TestClient) -> None:

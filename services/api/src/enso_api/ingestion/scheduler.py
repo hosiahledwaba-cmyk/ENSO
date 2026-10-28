@@ -5,11 +5,11 @@ from __future__ import annotations
 import asyncio
 import logging
 import uuid
-from datetime import UTC, datetime, timedelta
+from datetime import UTC, datetime
 from typing import Any
 
-from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from apscheduler.triggers.cron import CronTrigger
+from apscheduler.schedulers.asyncio import AsyncIOScheduler  # type: ignore[import-untyped]
+from apscheduler.triggers.cron import CronTrigger  # type: ignore[import-untyped]
 
 from enso_api.db import db_get_job, db_save_job, db_update_job
 from enso_api.ingestion.coordinator import ClimateIngestionCoordinator
@@ -66,7 +66,7 @@ class IngestionScheduler:
     @property
     def is_running(self) -> bool:
         """Check if scheduler is running."""
-        return self._scheduler.running
+        return bool(self._scheduler.running)
 
     @property
     def is_job_active(self) -> bool:
@@ -77,7 +77,8 @@ class IngestionScheduler:
         """Retrieve next scheduled run timestamp in UTC."""
         job = self._scheduler.get_job("daily_climate_ingestion_job")
         if job and job.next_run_time:
-            return job.next_run_time
+            nxt: datetime | None = job.next_run_time
+            return nxt
         return None
 
     def shutdown(self) -> None:
@@ -120,7 +121,8 @@ class IngestionScheduler:
                     job_type="ingestion",
                     parameters={
                         "is_scheduled": is_scheduled,
-                        "sources": sources or ["noaa_oni", "noaa_nino34", "noaa_soi", "chirps_rainfall"],
+                        "sources": sources
+                        or ["noaa_oni", "noaa_nino34", "noaa_soi", "chirps_rainfall"],
                         "force_full_refresh": force_full_refresh,
                     },
                 )

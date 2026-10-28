@@ -109,8 +109,9 @@ class EnsoRiskPredictor:
             category = "Normal / Low Drought Risk"
 
         # Linear contribution breakdown (w_i * z_i in log-odds space)
-        # Note: In logistic regression, feature contributions are strictly additive in log-odds (logit),
-        # NOT directly additive in probability space. We also compute marginal probability point shift (dP/dz).
+        # Note: In logistic regression, feature contributions are strictly additive in
+        # log-odds (logit), NOT directly additive in probability space. We also compute
+        # marginal probability point shift (dP/dz).
         contributions: dict[str, float] = {}
         feature_details: list[dict[str, Any]] = []
         sum_sq_z = 0.0
@@ -155,22 +156,21 @@ class EnsoRiskPredictor:
         total_logit = round(base_intercept + sum(contributions.values()), 4)
 
         # Honest Uncertainty Estimation:
-        # 1. Climatological Base Rate Wilson Score 95% Interval (valid for binomial prevalence of N seasons)
+        # 1. Climatological Base Rate Wilson Score 95% Interval (valid for N seasons)
         n_train = max(1, len(self.manifest.training_seasons))
         z_crit = 1.96
         denom = 1.0 + (z_crit**2) / n_train
         center = (p_base + (z_crit**2) / (2.0 * n_train)) / denom
-        margin = (
-            z_crit
-            * np.sqrt(max(0.0, (p_base * (1.0 - p_base)) / n_train + (z_crit**2) / (4.0 * n_train**2)))
-        ) / denom
+        var_term = (p_base * (1.0 - p_base)) / n_train + (z_crit**2) / (4.0 * n_train**2)
+        margin = (z_crit * np.sqrt(max(0.0, var_term))) / denom
         base_rate_ci_95 = [
             round(max(0.0, float(center - margin)), 4),
             round(min(1.0, float(center + margin)), 4),
         ]
 
         # 2. Prediction Parameter Uncertainty on Logit Scale:
-        # Asymptotic variance for logistic prediction logit: Var(eta) ~ (1 / (N * p_base * (1 - p_base))) + C * sum(z_i^2)
+        # Asymptotic variance for logistic prediction logit:
+        # Var(eta) ~ (1 / (N * p_base * (1 - p_base))) + C * sum(z_i^2)
         base_var = 1.0 / max(0.05, float(n_train * p_base * (1.0 - p_base)))
         feature_var = 0.04 * (sum_sq_z / max(1, len(self.expected_features)))
         se_logit = float(np.sqrt(base_var + feature_var))
@@ -182,9 +182,7 @@ class EnsoRiskPredictor:
         p_ci_high = float(1.0 / (1.0 + np.exp(-logit_high)))
         prediction_ci_95 = [round(max(0.0, p_ci_low), 4), round(min(1.0, p_ci_high), 4)]
 
-        is_calibrated = bool(
-            self.manifest.training_config.get("calibrate_probabilities", False)
-        )
+        is_calibrated = bool(self.manifest.training_config.get("calibrate_probabilities", False))
 
         return {
             "model_id": self.manifest.model_id,

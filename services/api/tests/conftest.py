@@ -13,9 +13,10 @@ if str(API_SRC) not in sys.path:
     sys.path.insert(0, str(API_SRC))
 
 import pytest
+from fastapi.testclient import TestClient
+
 from enso_api.config import Settings
 from enso_api.main import create_app
-from fastapi.testclient import TestClient
 
 ALLOWED_ORIGIN = "http://localhost:5173"
 

@@ -9,8 +9,6 @@ from typing import Any
 
 import pandas as pd
 from fastapi import APIRouter, HTTPException
-from pydantic import BaseModel, Field
-
 from ml.defense.detector import DefensiveInspectionEngine
 from ml.defense.models import (
     DefensiveInspectionReport,
@@ -20,6 +18,7 @@ from ml.defense.models import (
 )
 from ml.defense.simulation.harness import SimulationHarness
 from ml.inference.predictor import EnsoRiskPredictor
+from pydantic import BaseModel, Field
 
 logger = logging.getLogger("enso_api.defense")
 

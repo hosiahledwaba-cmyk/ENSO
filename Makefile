@@ -3,20 +3,23 @@
 
 ifeq ($(OS),Windows_NT)
     VENV_PY = services/api/.venv/Scripts/python.exe
+    SYSTEM_PY ?= python
 else
     VENV_PY = services/api/.venv/bin/python
+    SYSTEM_PY ?= $(shell which python3 2>/dev/null || which python 2>/dev/null || echo python3)
 endif
 
 ifneq ($(wildcard $(VENV_PY)),)
     PYTHON ?= $(VENV_PY)
 else
-    PYTHON ?= python
+    PYTHON ?= $(SYSTEM_PY)
 endif
 DEVCTL = infrastructure/local/devctl.py
 SVC ?= all
 LINES ?= 100
 FOLLOW ?= 0
 TIMEOUT ?= 45
+USE_FIXTURES ?= 0
 
 .DEFAULT_GOAL := help
 .PHONY: help env install run dev debug start stop restart status logs health \
@@ -83,19 +86,19 @@ env: ## Create .env from .env.example if missing
 
 ##@ Climate Data Pipeline
 ingest: ## Ingest and validate climate data (raw -> cleaned -> derived) [USE_FIXTURES=1]
-	@$(PYTHON) -m ml.data.cli ingest $(if $(filter 1 true,$(USE_FIXTURES)),--use-fixtures,)
+	@$(PYTHON) -m ml.data.cli ingest $(if $(filter 1 true True yes YES,$(USE_FIXTURES)),--use-fixtures,)
 
 features: ## Extract zero-lookahead features and label drought targets [USE_FIXTURES=1]
-	@$(PYTHON) -m ml.features.cli generate $(if $(filter 1 true,$(USE_FIXTURES)),--use-fixtures,)
+	@$(PYTHON) -m ml.features.cli generate $(if $(filter 1 true True yes YES,$(USE_FIXTURES)),--use-fixtures,)
 
 train: ## Train baseline and logistic regression experiment [USE_FIXTURES=1]
-	@$(PYTHON) -m ml.training.cli train $(if $(filter 1 true,$(USE_FIXTURES)),--use-fixtures,)
+	@$(PYTHON) -m ml.training.cli train $(if $(filter 1 true True yes YES,$(USE_FIXTURES)),--use-fixtures,)
 
 predict: ## Run probabilistic climate risk inference on sample input
 	@$(PYTHON) -m ml.inference.cli predict --sample
 
 experiment-compare: ## Compare Climatology, Logistic Regression, and XGBoost [USE_FIXTURES=1]
-	@$(PYTHON) -m ml.experiments.cli compare $(if $(filter 1 true,$(USE_FIXTURES)),--use-fixtures,)
+	@$(PYTHON) -m ml.experiments.cli compare $(if $(filter 1 true True yes YES,$(USE_FIXTURES)),--use-fixtures,)
 
 ##@ Quality & Testing
 check: ## Run all static checks and tests (lint, typecheck, test) [SVC=all|api|web]

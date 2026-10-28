@@ -79,7 +79,7 @@ def test_all_scenarios_evaluated_with_metrics(
     """All 5 perturbation scenarios must execute, returning empirical security metrics."""
     harness = SimulationHarness()
     cfg = SimulationConfig(
-        scenario=scenario,  # type: ignore[arg-type]
+        scenario=scenario,
         seed=42,
         target_feature="oni_aso_degc",
         perturbation_magnitude=1.0,

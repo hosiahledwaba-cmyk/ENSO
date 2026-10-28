@@ -195,7 +195,9 @@ async def predict_forecast(payload: PredictionRequest, request: Request) -> Pred
         if payload.precip_oct_mm is not None:
             resolved_precip_oct_mm = max(0.0, float(payload.precip_oct_mm))
         else:
-            resolved_precip_oct_mm = max(0.0, round(mu_oct + payload.precip_oct_zscore * sigma_oct, 2))
+            resolved_precip_oct_mm = max(
+                0.0, round(mu_oct + payload.precip_oct_zscore * sigma_oct, 2)
+            )
 
         resolved_precip_spring_mm = max(0.0, float(payload.precip_antecedent_spring_mm))
 
@@ -295,10 +297,14 @@ async def predict_forecast(payload: PredictionRequest, request: Request) -> Pred
     # Uncertainty calculations and comprehensive model audit context
     uncertainty_info = {
         "climatological_base_rate": risk_result.get("climatological_base_rate", 0.20),
-        "climatological_base_rate_ci_95": risk_result.get("climatological_base_rate_ci_95", [0.0362, 0.6244]),
+        "climatological_base_rate_ci_95": risk_result.get(
+            "climatological_base_rate_ci_95", [0.0362, 0.6244]
+        ),
         "prediction_parameter_ci_95": risk_result.get("prediction_parameter_ci_95", [0.0, 1.0]),
         "is_calibrated": risk_result.get("is_calibrated", False),
-        "calibration_status": risk_result.get("calibration_status", "Uncalibrated Raw Logistic Link"),
+        "calibration_status": risk_result.get(
+            "calibration_status", "Uncalibrated Raw Logistic Link"
+        ),
         "is_statistically_rigorous_ci": False,
         "statistical_notice": (
             "UNRESOLVED STATISTICAL LIMITATION: Parameter uncertainty interval is an approximate heuristic sensitivity bounds, "
@@ -614,7 +620,9 @@ def get_historical_comparisons() -> dict[str, Any]:
     from ml.inference.predictor import EnsoRiskPredictor
 
     model_dir = Path("models/logistic_regression_baseline")
-    predictor = EnsoRiskPredictor(model_dir) if (model_dir / "model_manifest.json").is_file() else None
+    predictor = (
+        EnsoRiskPredictor(model_dir) if (model_dir / "model_manifest.json").is_file() else None
+    )
 
     for _, row in df.iterrows():
         yr = int(row["season_year"])
@@ -668,7 +676,9 @@ def get_historical_comparisons() -> dict[str, Any]:
                 "historical_observation": {
                     "djf_rainfall_mm": djf_mm,
                     "target_drought_observed": ground_truth,
-                    "drought_label": "Severe Drought (p20 Deficit)" if ground_truth == 1 else "Normal / Wet",
+                    "drought_label": "Severe Drought (p20 Deficit)"
+                    if ground_truth == 1
+                    else "Normal / Wet",
                     "october_zscore": precip_z,
                     "oni_aso_degc": oni_aso,
                     "epistemic_tag": "HISTORICAL_OBSERVATION",
@@ -678,7 +688,9 @@ def get_historical_comparisons() -> dict[str, Any]:
                     "predicted_binary": pred_binary,
                     "risk_category": risk_cat,
                     "climatology_baseline_prob": 0.20,
-                    "skill_advantage": round(abs(ground_truth - 0.20) ** 2 - abs(ground_truth - model_prob) ** 2, 4),
+                    "skill_advantage": round(
+                        abs(ground_truth - 0.20) ** 2 - abs(ground_truth - model_prob) ** 2, 4
+                    ),
                     "epistemic_tag": "MODEL_ESTIMATE",
                 },
                 "official_external_forecast": {
@@ -701,4 +713,3 @@ def get_historical_comparisons() -> dict[str, Any]:
             "Model estimates are evaluated strictly without lookahead bias."
         ),
     }
-

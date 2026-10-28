@@ -8,9 +8,6 @@ from pathlib import Path
 from typing import Any
 
 from fastapi import APIRouter, HTTPException, status
-from pydantic import BaseModel, Field
-
-from enso_api.jobs import JobConflictError, submit_job
 from ml.registry.loader import SecureModelLoader
 from ml.registry.manifest import ModelManifest
 from ml.registry.quarantine import (
@@ -21,6 +18,9 @@ from ml.security.poisoning import (
     PoisoningAttackClass,
     TrainingPoisoningHarness,
 )
+from pydantic import BaseModel, Field
+
+from enso_api.jobs import JobConflictError, submit_job
 
 router = APIRouter(prefix="/api/v1", tags=["models"])
 
@@ -351,9 +351,7 @@ def list_poisoning_scenarios() -> dict[str, Any]:
                     "Injects synthetic high-leverage covariate points (super-El Niño magnitude + "
                     "spring drought deficit) paired with non-drought target to rotate hyperplane."
                 ),
-                "parameters": {
-                    "n_outliers": {"type": "integer", "default": 1, "min": 1, "max": 3}
-                },
+                "parameters": {"n_outliers": {"type": "integer", "default": 1, "min": 1, "max": 3}},
                 "tested_threat": (
                     "Single or dual high-leverage points rotating linear decision boundaries."
                 ),

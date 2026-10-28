@@ -1,8 +1,9 @@
 from __future__ import annotations
 
 import pytest
-from enso_api.config import Settings
 from pydantic import ValidationError
+
+from enso_api.config import Settings
 
 
 def test_csv_env_values_are_parsed(monkeypatch: pytest.MonkeyPatch) -> None:

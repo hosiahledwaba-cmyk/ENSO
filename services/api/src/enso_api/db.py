@@ -641,7 +641,7 @@ def _parse_date(val: str | None) -> date | None:
             return date(int(parts[0]), int(parts[1]), 1)
         elif len(parts) >= 3:
             return date(int(parts[0]), int(parts[1]), int(parts[2].split("T")[0]))
-    except Exception:
+    except (ValueError, TypeError, IndexError):
         pass
     return None
 
@@ -746,15 +746,27 @@ async def db_get_climate_coverage(source_id: str | None = None) -> list[dict[str
                     "dataset_name": r["dataset_name"],
                     "dataset_version": r["dataset_version"],
                     "frequency": r["frequency"],
-                    "expected_units": json.loads(r["expected_units"]) if r["expected_units"] else {},
+                    "expected_units": json.loads(r["expected_units"])
+                    if r["expected_units"]
+                    else {},
                     "spatial_coverage": r["spatial_coverage"],
-                    "earliest_observation": r["earliest_observation"].isoformat() if r["earliest_observation"] else None,
-                    "latest_observation": r["latest_observation"].isoformat() if r["latest_observation"] else None,
+                    "earliest_observation": r["earliest_observation"].isoformat()
+                    if r["earliest_observation"]
+                    else None,
+                    "latest_observation": r["latest_observation"].isoformat()
+                    if r["latest_observation"]
+                    else None,
                     "total_records": r["total_records"],
-                    "missing_periods": json.loads(r["missing_periods"]) if r["missing_periods"] else [],
+                    "missing_periods": json.loads(r["missing_periods"])
+                    if r["missing_periods"]
+                    else [],
                     "publication_delay_days": r["publication_delay_days"],
-                    "last_checked_at": r["last_checked_at"].isoformat() if r["last_checked_at"] else None,
-                    "last_success_at": r["last_success_at"].isoformat() if r["last_success_at"] else None,
+                    "last_checked_at": r["last_checked_at"].isoformat()
+                    if r["last_checked_at"]
+                    else None,
+                    "last_success_at": r["last_success_at"].isoformat()
+                    if r["last_success_at"]
+                    else None,
                     "status": r["status"],
                     "last_error": r["last_error"],
                     "metadata": json.loads(r["metadata"]) if r["metadata"] else {},
@@ -862,11 +874,17 @@ async def db_list_ingestion_logs(
                     "records_updated": r["records_updated"],
                     "records_skipped": r["records_skipped"],
                     "records_rejected": r["records_rejected"],
-                    "earliest_date_ingested": r["earliest_date_ingested"].isoformat() if r["earliest_date_ingested"] else None,
-                    "latest_date_ingested": r["latest_date_ingested"].isoformat() if r["latest_date_ingested"] else None,
+                    "earliest_date_ingested": r["earliest_date_ingested"].isoformat()
+                    if r["earliest_date_ingested"]
+                    else None,
+                    "latest_date_ingested": r["latest_date_ingested"].isoformat()
+                    if r["latest_date_ingested"]
+                    else None,
                     "raw_artifact_sha256": r["raw_artifact_sha256"],
                     "cleaned_artifact_sha256": r["cleaned_artifact_sha256"],
-                    "validation_warnings": json.loads(r["validation_warnings"]) if r["validation_warnings"] else [],
+                    "validation_warnings": json.loads(r["validation_warnings"])
+                    if r["validation_warnings"]
+                    else [],
                     "error_message": r["error_message"],
                     "duration_ms": r["duration_ms"],
                     "created_at": r["created_at"].isoformat() if r["created_at"] else None,
@@ -1104,5 +1122,3 @@ async def db_get_preparedness_audit_log(
     except Exception as exc:
         logger.warning("Failed to retrieve preparedness audit log: %s", exc)
         return []
-
-

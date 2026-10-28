@@ -70,7 +70,9 @@ def test_missing_spring_rainfall_scenario_rejected(client: TestClient) -> None:
 
     response = client.post("/api/v1/forecast/predict", json=payload)
     assert response.status_code == 422
-    assert "Missing required scenario input 'precip_antecedent_spring_mm'" in response.json()["detail"]
+    assert (
+        "Missing required scenario input 'precip_antecedent_spring_mm'" in response.json()["detail"]
+    )
 
 
 def test_physically_inconsistent_spring_rainfall_rejected(client: TestClient) -> None:
@@ -128,7 +130,9 @@ def test_explicit_scenario_prediction_with_full_features(client: TestClient) -> 
     assert "UNRESOLVED STATISTICAL LIMITATION" in data["uncertainty"]["statistical_notice"]
 
 
-def test_operational_prediction_retrieves_ground_truth_for_historical_season(client: TestClient) -> None:
+def test_operational_prediction_retrieves_ground_truth_for_historical_season(
+    client: TestClient,
+) -> None:
     """Verify that is_scenario=false retrieves genuine observed features from labelled store."""
     payload = {
         "issue_year": 1983,  # Historical season in labelled features
@@ -161,7 +165,10 @@ def test_operational_prediction_unobserved_year_rejected(client: TestClient) -> 
 
     response = client.post("/api/v1/forecast/predict", json=payload)
     assert response.status_code == 422
-    assert "Operational feature vector for season year 2026 is not available" in response.json()["detail"]
+    assert (
+        "Operational feature vector for season year 2026 is not available"
+        in response.json()["detail"]
+    )
 
 
 def test_logit_decomposition_invariant(client: TestClient) -> None:

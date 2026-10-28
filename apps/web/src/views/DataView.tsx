@@ -254,8 +254,13 @@ export function DataView({ api }: DataViewProps) {
             <tbody>
               {coverage.length > 0 ? (
                 coverage.map((c) => {
-                  const statusText = c.update_status || (c as any).status || 'OPERATIONAL'
-                  const freqText = c.temporal_frequency || (c as any).frequency || 'monthly'
+                  const rawC = c as unknown as Record<string, unknown>
+                  const statusText =
+                    c.update_status ||
+                    (typeof rawC.status === 'string' ? rawC.status : 'OPERATIONAL')
+                  const freqText =
+                    c.temporal_frequency ||
+                    (typeof rawC.frequency === 'string' ? rawC.frequency : 'monthly')
                   let statusBadgeClass = 'badge-ok'
                   const lowerStatus = statusText.toLowerCase()
                   if (lowerStatus.includes('no_new_data')) {
@@ -353,7 +358,10 @@ export function DataView({ api }: DataViewProps) {
               </thead>
               <tbody>
                 {ingestionHistory.map((h) => {
-                  const histStatus = h.status || (h as any).lifecycle_stage || 'UNKNOWN'
+                  const rawH = h as unknown as Record<string, unknown>
+                  const histStatus =
+                    h.status ||
+                    (typeof rawH.lifecycle_stage === 'string' ? rawH.lifecycle_stage : 'UNKNOWN')
                   let badge = 'badge-ok'
                   const lowerHist = histStatus.toLowerCase()
                   if (lowerHist.includes('no_new_data')) badge = 'badge-sand'

@@ -74,12 +74,12 @@ def fetch_url_with_retry(
     if headers:
         req_headers.update(headers)
 
-    req = urllib.request.Request(url, headers=req_headers)
+    req = urllib.request.Request(url, headers=req_headers)  # noqa: S310
     last_exc: Exception | None = None
 
     for attempt in range(max_retries):
         try:
-            with urllib.request.urlopen(req, timeout=timeout) as resp:
+            with urllib.request.urlopen(req, timeout=timeout) as resp:  # noqa: S310
                 data = resp.read()
                 resp_headers = {k.lower(): v for k, v in resp.headers.items()}
                 return data, resp_headers
@@ -254,9 +254,7 @@ class NoaaOniProvider(BaseClimateProvider):
 
             if clean_target.is_file() and not force_full_refresh:
                 df_curr = pd.read_csv(clean_target)
-                curr_sha256 = hashlib.sha256(
-                    clean_target.read_bytes()
-                ).hexdigest()
+                curr_sha256 = hashlib.sha256(clean_target.read_bytes()).hexdigest()
 
                 if curr_sha256 == new_sha256:
                     lifecycle = "NO_NEW_DATA"
@@ -294,7 +292,7 @@ class NoaaOniProvider(BaseClimateProvider):
                 dataset_version=self.dataset_version,
                 frequency=self.frequency,
                 expected_units=self.expected_units,
-                spatial_coverage="Global Tropical Pacific (Niño 3.4 box: 5°N–5°S, 170°W–120°W)",
+                spatial_coverage="Global Tropical Pacific (Niño 3.4 box: 5°N-5°S, 170°W-120°W)",
                 earliest_observation=earliest,
                 latest_observation=latest,
                 total_records=len(df_new),
@@ -403,7 +401,9 @@ class NoaaNino34Provider(BaseClimateProvider):
         rows, _ = self.parse_sstoi_text_with_warnings(content)
         return rows
 
-    def parse_sstoi_text_with_warnings(self, content: str) -> tuple[list[dict[str, Any]], list[str]]:
+    def parse_sstoi_text_with_warnings(
+        self, content: str
+    ) -> tuple[list[dict[str, Any]], list[str]]:
         rows: list[dict[str, Any]] = []
         warnings: list[str] = []
         lines = [line.strip() for line in content.splitlines() if line.strip()]
@@ -499,9 +499,7 @@ class NoaaNino34Provider(BaseClimateProvider):
 
             if clean_target.is_file() and not force_full_refresh:
                 df_curr = pd.read_csv(clean_target)
-                curr_sha256 = hashlib.sha256(
-                    clean_target.read_bytes()
-                ).hexdigest()
+                curr_sha256 = hashlib.sha256(clean_target.read_bytes()).hexdigest()
 
                 if curr_sha256 == new_sha256:
                     lifecycle = "NO_NEW_DATA"
@@ -538,7 +536,7 @@ class NoaaNino34Provider(BaseClimateProvider):
                 dataset_version=self.dataset_version,
                 frequency=self.frequency,
                 expected_units=self.expected_units,
-                spatial_coverage="Niño 3.4 Region (5°N–5°S, 170°W–120°W)",
+                spatial_coverage="Niño 3.4 Region (5°N-5°S, 170°W-120°W)",
                 earliest_observation=earliest,
                 latest_observation=latest,
                 total_records=len(df_new),
@@ -698,10 +696,10 @@ class NoaaSoiProvider(BaseClimateProvider):
                 val_tokens = parts[1:13]
             else:
                 # NOAA CPC fixed-width formatting allows negative numbers to abut without spaces (e.g. '-3.3-999.9').
-                remainder = line[year_match.end():]
+                remainder = line[year_match.end() :]
                 val_tokens = re.findall(r"(-?\d+\.\d+)", remainder)
                 if len(val_tokens) < 12:
-                    raw_remainder = raw_line[year_match.end():]
+                    raw_remainder = raw_line[year_match.end() :]
                     val_tokens = []
                     for mo_idx in range(12):
                         start_pos = mo_idx * 6
@@ -724,13 +722,17 @@ class NoaaSoiProvider(BaseClimateProvider):
                     if val < -6.0 or val > 6.0:
                         logger.warning(
                             "Implausible standardized SOI value %.2f for %d-%02d; skipped.",
-                            val, yr, mo
+                            val,
+                            yr,
+                            mo,
                         )
                         continue
 
                     date_str = f"{yr}-{mo:02d}-01"
                     if date_str in seen_dates:
-                        logger.warning("Duplicate observation encountered for %s; skipping.", date_str)
+                        logger.warning(
+                            "Duplicate observation encountered for %s; skipping.", date_str
+                        )
                         continue
 
                     seen_dates.add(date_str)
@@ -781,9 +783,7 @@ class NoaaSoiProvider(BaseClimateProvider):
 
             if clean_target.is_file() and not force_full_refresh:
                 df_curr = pd.read_csv(clean_target)
-                curr_sha256 = hashlib.sha256(
-                    clean_target.read_bytes()
-                ).hexdigest()
+                curr_sha256 = hashlib.sha256(clean_target.read_bytes()).hexdigest()
 
                 if curr_sha256 == new_sha256:
                     lifecycle = "NO_NEW_DATA"
@@ -934,15 +934,15 @@ class ChirpsRainfallProvider(BaseClimateProvider):
         # Col index: (lon - (-20.0)) / 0.05
         row_start = int((40.0 - STUDY_AREA_BOUNDS["lat_max"]) / 0.05)  # (40 - (-22)) / 0.05 = 1240
         row_end = int((40.0 - STUDY_AREA_BOUNDS["lat_min"]) / 0.05)  # (40 - (-30)) / 0.05 = 1400
-        col_start = int((STUDY_AREA_BOUNDS["lon_min"] - (-20.0)) / 0.05)  # (25 - (-20)) / 0.05 = 900
+        col_start = int(
+            (STUDY_AREA_BOUNDS["lon_min"] - (-20.0)) / 0.05
+        )  # (25 - (-20)) / 0.05 = 900
         col_end = int((STUDY_AREA_BOUNDS["lon_max"] - (-20.0)) / 0.05)  # (32 - (-20)) / 0.05 = 1040
 
         sub = arr[row_start:row_end, col_start:col_end]
         valid = sub[sub >= 0.0]  # Filter sentinel missing/ocean values
         if len(valid) == 0:
-            raise ValueError(
-                f"No valid pixels found in bounding box {STUDY_AREA_BOUNDS}"
-            )
+            raise ValueError(f"No valid pixels found in bounding box {STUDY_AREA_BOUNDS}")
 
         return float(round(float(np.mean(valid)), 2))
 
@@ -1249,7 +1249,7 @@ class ClimateIngestionCoordinator:
                     if "date" in df.columns:
                         earliest = str(df["date"].min())
                         latest = str(df["date"].max())
-                except Exception:
+                except (KeyError, ValueError, OSError):
                     pass
 
             report_items.append(
@@ -1268,7 +1268,9 @@ class ClimateIngestionCoordinator:
                     "publication_delay_days": provider.publication_delay_days,
                     "last_checked_at": db_item.get("last_checked_at"),
                     "last_success_at": db_item.get("last_success_at"),
-                    "status": db_item.get("status", "INITIALIZED" if not clean_file.is_file() else "CHECKED"),
+                    "status": db_item.get(
+                        "status", "INITIALIZED" if not clean_file.is_file() else "CHECKED"
+                    ),
                     "last_error": db_item.get("last_error"),
                     "file_exists": clean_file.is_file(),
                     "file_bytes": clean_file.stat().st_size if clean_file.is_file() else 0,
@@ -1285,7 +1287,8 @@ class ClimateIngestionCoordinator:
     async def get_coverage_summary(self) -> list[dict[str, Any]]:
         """Return list of provider coverage reports for API responses."""
         report = await self.get_coverage_report()
-        return report.get("providers", [])
+        providers = report.get("providers", [])
+        return [p for p in providers if isinstance(p, dict)]
 
     def run_all(self, dry_run: bool = False) -> dict[str, Any]:
         """Synchronous wrapper for test fixtures and dry-run health checks."""
