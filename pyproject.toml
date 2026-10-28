@@ -1,0 +1,66 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "enso-shield"
+version = "0.1.0"
+description = "ENSO Shield platform root package"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "numpy>=1.26",
+    "pandas>=2.2",
+    "pydantic>=2.9",
+    "scikit-learn>=1.5",
+    "xgboost>=2.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests", "services/api/tests"]
+pythonpath = [".", "services/api/src"]
+addopts = "-q --strict-markers"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "S", "N", "SIM", "RUF"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101", "S105", "S106", "E501", "N806", "E402"]
+"services/api/tests/**" = ["S101", "S105", "S106", "E501", "N806", "E402"]
+"services/api/src/enso_api/main.py" = ["E402"]
+"infrastructure/local/**" = ["S101", "S603", "S607", "E501"]
+"ml/features/data_dictionary.py" = ["E501", "RUF001"]
+"ml/training/models.py" = ["N803", "N806"]
+"ml/experiments/**" = ["N806"]
+"ml/security/**" = ["E501"]
+"services/api/src/**" = ["E501"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+mypy_path = "services/api/src:."
+files = ["ml", "services/api/src", "tests"]
+plugins = ["pydantic.mypy"]
+
+[[tool.mypy.overrides]]
+module = [
+    "asyncpg",
+    "asyncpg.*",
+    "pandas",
+    "pandas.*",
+    "sklearn",
+    "sklearn.*",
+    "scipy",
+    "scipy.*",
+    "xgboost",
+    "xgboost.*",
+]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = ["infrastructure.local.*"]
+ignore_errors = true

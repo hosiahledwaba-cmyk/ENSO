@@ -1,0 +1,143 @@
+{
+  "dataset_fingerprint": "967ee97e8d4ad2be292a5d5b02afcfa7ed1f096cb983d289f2d5313464990e83",
+  "sample_size": 5,
+  "target_column": "target_drought_p20",
+  "ablation_records": [
+    {
+      "ablation_id": "full_features",
+      "feature_count": 10,
+      "features": [
+        "oni_aso_degc",
+        "oni_trend_aso_jas_degc",
+        "oni_trend_aso_jja_degc",
+        "nino34_aso_sst_degc",
+        "nino34_aso_anom_degc",
+        "nino34_oct_anom_degc",
+        "nino34_trend_oct_aug_degc",
+        "precip_oct_mm",
+        "precip_oct_zscore",
+        "precip_antecedent_spring_mm"
+      ],
+      "brier_score_logistic": 0.0023,
+      "bss_logistic": 0.9735,
+      "brier_score_xgboost": 0.10039,
+      "bss_xgboost": -0.1567,
+      "delta_bs_vs_full_logistic": 0.0,
+      "delta_bs_vs_full_xgboost": 0.0,
+      "superior_architecture": "LogisticRegression"
+    },
+    {
+      "ablation_id": "enso_macro_only",
+      "feature_count": 7,
+      "features": [
+        "oni_aso_degc",
+        "oni_trend_aso_jas_degc",
+        "oni_trend_aso_jja_degc",
+        "nino34_aso_sst_degc",
+        "nino34_aso_anom_degc",
+        "nino34_oct_anom_degc",
+        "nino34_trend_oct_aug_degc"
+      ],
+      "brier_score_logistic": 0.00396,
+      "bss_logistic": 0.9544,
+      "brier_score_xgboost": 0.10039,
+      "bss_xgboost": -0.1567,
+      "delta_bs_vs_full_logistic": 0.00166,
+      "delta_bs_vs_full_xgboost": 0.0,
+      "superior_architecture": "LogisticRegression"
+    },
+    {
+      "ablation_id": "local_precip_only",
+      "feature_count": 3,
+      "features": [
+        "precip_oct_mm",
+        "precip_oct_zscore",
+        "precip_antecedent_spring_mm"
+      ],
+      "brier_score_logistic": 0.01313,
+      "bss_logistic": 0.8487,
+      "brier_score_xgboost": 0.10039,
+      "bss_xgboost": -0.1567,
+      "delta_bs_vs_full_logistic": 0.01083,
+      "delta_bs_vs_full_xgboost": 0.0,
+      "superior_architecture": "LogisticRegression"
+    },
+    {
+      "ablation_id": "parsimonious_teleconnection",
+      "feature_count": 2,
+      "features": [
+        "oni_aso_degc",
+        "precip_oct_zscore"
+      ],
+      "brier_score_logistic": 0.01269,
+      "bss_logistic": 0.8538,
+      "brier_score_xgboost": 0.10039,
+      "bss_xgboost": -0.1567,
+      "delta_bs_vs_full_logistic": 0.01039,
+      "delta_bs_vs_full_xgboost": 0.0,
+      "superior_architecture": "LogisticRegression"
+    },
+    {
+      "ablation_id": "sst_anomalies_only",
+      "feature_count": 3,
+      "features": [
+        "oni_aso_degc",
+        "nino34_aso_anom_degc",
+        "nino34_oct_anom_degc"
+      ],
+      "brier_score_logistic": 0.00597,
+      "bss_logistic": 0.9312,
+      "brier_score_xgboost": 0.10039,
+      "bss_xgboost": -0.1567,
+      "delta_bs_vs_full_logistic": 0.00367,
+      "delta_bs_vs_full_xgboost": 0.0,
+      "superior_architecture": "LogisticRegression"
+    },
+    {
+      "ablation_id": "no_oni_macro",
+      "feature_count": 7,
+      "features": [
+        "nino34_aso_sst_degc",
+        "nino34_aso_anom_degc",
+        "nino34_oct_anom_degc",
+        "nino34_trend_oct_aug_degc",
+        "precip_oct_mm",
+        "precip_oct_zscore",
+        "precip_antecedent_spring_mm"
+      ],
+      "brier_score_logistic": 0.00287,
+      "bss_logistic": 0.9669,
+      "brier_score_xgboost": 0.10039,
+      "bss_xgboost": -0.1567,
+      "delta_bs_vs_full_logistic": 0.00057,
+      "delta_bs_vs_full_xgboost": 0.0,
+      "superior_architecture": "LogisticRegression"
+    },
+    {
+      "ablation_id": "no_local_precip",
+      "feature_count": 7,
+      "features": [
+        "oni_aso_degc",
+        "oni_trend_aso_jas_degc",
+        "oni_trend_aso_jja_degc",
+        "nino34_aso_sst_degc",
+        "nino34_aso_anom_degc",
+        "nino34_oct_anom_degc",
+        "nino34_trend_oct_aug_degc"
+      ],
+      "brier_score_logistic": 0.00396,
+      "bss_logistic": 0.9544,
+      "brier_score_xgboost": 0.10039,
+      "bss_xgboost": -0.1567,
+      "delta_bs_vs_full_logistic": 0.00166,
+      "delta_bs_vs_full_xgboost": 0.0,
+      "superior_architecture": "LogisticRegression"
+    }
+  ],
+  "optimal_subset_logistic": "full_features",
+  "optimal_subset_xgboost": "full_features",
+  "key_findings": [
+    "Optimal subset for Logistic Regression: 'full_features' (BS=0.00230, BSS=+0.9735).",
+    "Optimal subset for XGBoost: 'full_features' (BS=0.10039, BSS=-0.1567)."
+  ]
+}

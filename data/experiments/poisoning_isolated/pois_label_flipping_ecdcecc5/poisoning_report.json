@@ -1,0 +1,73 @@
+{
+  "experiment_id": "pois_label_flipping_ecdcecc5",
+  "attack_class": "LABEL_FLIPPING",
+  "attack_description": "Flipped drought label 1 -> 0 on 1 high-leverage El Niño seasons to suppress seasonal drought alert generation.",
+  "records_modified": 1,
+  "fraction_poisoned": 0.1429,
+  "clean_training_fingerprint": "967ee97e8d4ad2be292a5d5b02afcfa7ed1f096cb983d289f2d5313464990e83",
+  "poisoned_training_fingerprint": "3081d1776812ee7cc16f3c3f0d9b45a110ab18c9bd8e3eb9997444fcf37fb944",
+  "clean_holdout_brier_score": 0.19939,
+  "poisoned_holdout_brier_score": 0.0,
+  "brier_score_degradation": -0.1994,
+  "clean_holdout_bss": -3.9847,
+  "poisoned_holdout_bss": 0.0,
+  "bss_degradation": -3.9847,
+  "intercept_shift": 2.4719,
+  "clean_intercept": -2.4719,
+  "poisoned_intercept": 0.0,
+  "coefficient_shifts": {
+    "oni_aso_degc": -0.2609,
+    "oni_trend_aso_jas_degc": -0.2412,
+    "oni_trend_aso_jja_degc": -0.2284,
+    "nino34_aso_sst_degc": -0.2585,
+    "nino34_aso_anom_degc": -0.2586,
+    "nino34_oct_anom_degc": -0.2545,
+    "nino34_trend_oct_aug_degc": -0.227,
+    "precip_oct_mm": 0.2434,
+    "precip_oct_zscore": 0.2434,
+    "precip_antecedent_spring_mm": 0.2401
+  },
+  "l2_weight_displacement": 0.7775,
+  "flipped_holdout_predictions_count": 2,
+  "flipped_holdout_seasons": [
+    {
+      "season_year": 1987,
+      "ground_truth": 0,
+      "clean_probability": 0.323,
+      "poisoned_probability": 0.0,
+      "clean_prediction": 0,
+      "poisoned_prediction": 0,
+      "clean_category": "Elevated",
+      "poisoned_category": "Normal"
+    },
+    {
+      "season_year": 1988,
+      "ground_truth": 0,
+      "clean_probability": 0.5426,
+      "poisoned_probability": 0.0,
+      "clean_prediction": 1,
+      "poisoned_prediction": 0,
+      "clean_category": "High",
+      "poisoned_category": "Normal"
+    }
+  ],
+  "max_probability_drift": 0.5426,
+  "tested_attack_class": "LABEL_FLIPPING",
+  "threat_limitations": [
+    "Linear regularized models with small sample sizes (N=24 seasons) exhibit high vulnerability to targeted leverage outliers (Cook's D > 1.0).",
+    "Clean-label subpopulation poisoning (Delta ONI = -1.5 degC) can invert seasonal coefficients without causing statistical out-of-range rejections.",
+    "Model manifests verify at-rest and post-training integrity via SHA-256 digests, but cannot detect poison introduced into the upstream data collection before initial feature calculation unless input anomaly filtering is active."
+  ],
+  "recovery_process": [
+    "1. Isolate and quarantine suspect model immediately via ModelQuarantineManager.",
+    "2. Verify training dataset SHA-256 against registered golden provenance log.",
+    "3. Roll back dataset to last authenticated provenance snapshot if fingerprint mismatch is found.",
+    "4. Trigger automated retraining pipeline and re-evaluate rolling-origin Brier skill score against climatological baseline.",
+    "5. Promote restored model only after cryptographic manifest validation and formal reviewer sign-off."
+  ],
+  "remaining_risks": [
+    "Stealthy bilevel optimization attacks that perturb observations below individual 3-sigma anomaly detection thresholds.",
+    "Adversarial contamination of low-latency near-real-time preliminary climate observations before final quality-controlled release.",
+    "Volumetric attacks where attacker compromises multiple independent data sources simultaneously."
+  ]
+}

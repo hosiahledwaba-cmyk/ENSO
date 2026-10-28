@@ -1,0 +1,43 @@
+{
+  "manifest_version": "2.0",
+  "dataset_id": "noaa_soi",
+  "source_identifier": "noaa_soi",
+  "source_name": "NOAA CPC Southern Oscillation Index (Tahiti - Darwin SLP Standardized Anomaly)",
+  "source_version": "NOAA-CPC-SOI-v1",
+  "dataset_version": "NOAA-CPC-SOI-v1",
+  "source_url": "https://www.cpc.ncep.noaa.gov/data/indices/soi",
+  "source_timestamp_utc": null,
+  "licence": "Public Domain (U.S. Government Work)",
+  "citation": "Ropelewski, C. F., & Jones, P. D. (1987). An Extension of the Tahiti-Darwin Southern Oscillation Index. Monthly Weather Review, 115(9), 2161-2165.",
+  "ingestion_timestamp_utc": "2026-10-28T09:17:59.004381+00:00",
+  "content_digest": "dce1e2142d8256b19c8d68754df405e3bb6f0abe678891a327dc6864e2edce6b",
+  "raw_sha256": "720365224dd280be7b6c1c6f9ef3dc11d03c2cf404b2d0bf07a68f4f4e8d35ae",
+  "cleaned_sha256": "dce1e2142d8256b19c8d68754df405e3bb6f0abe678891a327dc6864e2edce6b",
+  "derived_sha256": null,
+  "record_count": 909,
+  "date_range": {
+    "start": "1951-01-01",
+    "end": "2026-09-01"
+  },
+  "units": {
+    "soi_standardized": "standardized index"
+  },
+  "spatial_bounds": null,
+  "validation_status": "PASSED",
+  "validation_outcome": {
+    "is_valid": true,
+    "status": "PASSED",
+    "total_records": 909,
+    "error_count": 0,
+    "errors": [],
+    "timestamp_utc": "2026-10-28T09:17:59.004381+00:00"
+  },
+  "processing_history": [],
+  "authenticity_status": "AUTHENTIC_CONTROLLED_PIPELINE",
+  "signature": "11ef54e119b78a66e30275ca3ab7568f906b026f57eb3f2c07057043d8e96ede",
+  "signing_key_id": "enso-pipeline-hmac-v1",
+  "staleness_threshold_days": 60,
+  "is_archival_benchmark": true,
+  "pipeline_version": "0.1.0",
+  "additional_metadata": {}
+}

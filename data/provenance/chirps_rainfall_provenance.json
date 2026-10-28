@@ -1,0 +1,91 @@
+{
+  "manifest_version": "2.0",
+  "dataset_id": "chirps_rainfall",
+  "source_identifier": "chirps_rainfall",
+  "source_name": "CHIRPS-2.0 Climate Hazards Group InfraRed Precipitation with Station Data",
+  "source_version": "CHIRPS-v2.0",
+  "dataset_version": "CHIRPS-v2.0",
+  "source_url": "https://data.chc.ucsb.edu/products/CHIRPS-2.0/",
+  "source_timestamp_utc": "2026-10-27T19:38:27.022360+00:00",
+  "licence": "Public Domain / CC0 (USGS & UC Santa Barbara CHC)",
+  "citation": "Funk, C., Peterson, P., Landsfeld, M., et al. (2015). The climate hazards infrared precipitation with stations\u2014a new environmental record for monitoring extremes. Scientific Data, 2, 150066. https://doi.org/10.1038/sdata.2015.66",
+  "ingestion_timestamp_utc": "2026-10-28T10:01:03.708877+00:00",
+  "content_digest": "c482499ed8cbed3452a3330125a949d4c58f8f15f6db6ad1fd6a2e33e6939924",
+  "raw_sha256": "329bd595f543156cf16c85c5e6613d3bb619102251acc746433a42d00482fe9c",
+  "cleaned_sha256": "c482499ed8cbed3452a3330125a949d4c58f8f15f6db6ad1fd6a2e33e6939924",
+  "derived_sha256": null,
+  "record_count": 96,
+  "date_range": {
+    "start": "1981-01",
+    "end": "1988-12"
+  },
+  "units": {
+    "precip_mm": "mm/month"
+  },
+  "spatial_bounds": {
+    "lat_min": -30.0,
+    "lat_max": -22.0,
+    "lon_min": 25.0,
+    "lon_max": 32.0
+  },
+  "validation_status": "PASSED",
+  "validation_outcome": {
+    "is_valid": true,
+    "status": "PASSED",
+    "total_records": 96,
+    "checks_count": 9,
+    "passed_checks": [
+      "schema_columns",
+      "month_bounds",
+      "duplicate_timestamps",
+      "monotonic_timestamps",
+      "missing_values_year",
+      "missing_values_month",
+      "missing_values_precip_mm",
+      "physical_range_precip_mm",
+      "geographic_coverage"
+    ],
+    "failed_checks": [],
+    "error_count": 0,
+    "errors": [],
+    "warnings": [],
+    "timestamp_utc": "2026-10-28T10:01:03.708271+00:00"
+  },
+  "processing_history": [
+    {
+      "step_name": "raw_acquisition",
+      "timestamp_utc": "2026-10-27T19:38:27.022360+00:00",
+      "operator": "chirps_rainfall_adapter:CHIRPS-v2.0",
+      "input_digests": {},
+      "output_digest": "329bd595f543156cf16c85c5e6613d3bb619102251acc746433a42d00482fe9c",
+      "parameters": {
+        "source_url": "https://data.chc.ucsb.edu/products/CHIRPS-2.0/",
+        "licence": "Public Domain / CC0 (USGS & UC Santa Barbara CHC)",
+        "note": "Unsigned third-party observational data. Hash recorded for post-ingestion tamper detection."
+      }
+    },
+    {
+      "step_name": "validation_and_cleaning",
+      "timestamp_utc": "2026-10-28T10:01:03.707764+00:00",
+      "operator": "chirps_rainfall_adapter:CHIRPS-v2.0",
+      "input_digests": {
+        "raw_artefact": "329bd595f543156cf16c85c5e6613d3bb619102251acc746433a42d00482fe9c"
+      },
+      "output_digest": "c482499ed8cbed3452a3330125a949d4c58f8f15f6db6ad1fd6a2e33e6939924",
+      "parameters": {
+        "expected_units": {
+          "precip_mm": "mm/month"
+        },
+        "records_cleaned": 96,
+        "checks_passed": 9
+      }
+    }
+  ],
+  "authenticity_status": "AUTHENTIC_CONTROLLED_PIPELINE",
+  "signature": "ce1681e6d45527739812e146876b3a177d7adb07b2af3c884ed4a452949d16c9",
+  "signing_key_id": "enso-pipeline-hmac-v1",
+  "staleness_threshold_days": 60,
+  "is_archival_benchmark": true,
+  "pipeline_version": "0.1.0",
+  "additional_metadata": {}
+}

@@ -1,0 +1,21 @@
+{
+  "model_id": "enso_logistic_20261028_033125",
+  "target": "target_drought_p20",
+  "training_seasons": [
+    1982,
+    1983,
+    1984,
+    1985,
+    1986
+  ],
+  "holdout_seasons": [
+    1987,
+    1988
+  ],
+  "rolling_origin_brier_score": 0.0,
+  "rolling_origin_bss": 0.0,
+  "holdout_baseline_brier_score": 0.0,
+  "holdout_model_brier_score": 0.0,
+  "holdout_bss": 0.0,
+  "beats_baseline_on_holdout": false
+}

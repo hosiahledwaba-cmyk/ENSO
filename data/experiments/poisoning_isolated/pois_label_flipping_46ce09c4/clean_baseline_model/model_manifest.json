@@ -1,0 +1,259 @@
+{
+  "manifest_version": "2.0",
+  "model_id": "enso_logistic_20261028_094311",
+  "model_version": "1.0.0",
+  "model_type": "regularized_logistic_regression",
+  "approval_status": "APPROVED",
+  "created_at_utc": "2026-10-28T09:43:11.639220+00:00",
+  "training_config": {
+    "target_column": "target_drought_p20",
+    "feature_columns": [
+      "oni_aso_degc",
+      "oni_trend_aso_jas_degc",
+      "oni_trend_aso_jja_degc",
+      "nino34_aso_sst_degc",
+      "nino34_aso_anom_degc",
+      "nino34_oct_anom_degc",
+      "nino34_trend_oct_aug_degc",
+      "precip_oct_mm",
+      "precip_oct_zscore",
+      "precip_antecedent_spring_mm"
+    ],
+    "c_regularization": 1.0,
+    "penalty": "l2",
+    "solver": "lbfgs",
+    "max_iter": 1000,
+    "random_seed": 42,
+    "min_train_seasons": 5,
+    "decision_threshold": 0.5,
+    "calibrate_probabilities": false
+  },
+  "dataset_id": "enso_rainfall_features_labelled",
+  "dataset_version": "1.0-features",
+  "dataset_sha256": "967ee97e8d4ad2be292a5d5b02afcfa7ed1f096cb983d289f2d5313464990e83",
+  "training_data_fingerprint": "967ee97e8d4ad2be292a5d5b02afcfa7ed1f096cb983d289f2d5313464990e83",
+  "training_seasons": [
+    1982,
+    1983,
+    1984,
+    1985,
+    1986
+  ],
+  "holdout_seasons": [
+    1987,
+    1988
+  ],
+  "target_variable": "target_drought_p20",
+  "artefact_digest": "11c85c69d5fe939f191bd2f08da54a97c0aabd96279ca4c9ffcbf8b71b6bc68b",
+  "artefact_relpath": "logistic_regression.json",
+  "feature_schema": [
+    {
+      "name": "oni_aso_degc",
+      "dtype": "float",
+      "unit": "degC",
+      "required": true,
+      "mean_training": 0.04,
+      "scale_training": 0.78638
+    },
+    {
+      "name": "oni_trend_aso_jas_degc",
+      "dtype": "float",
+      "unit": "degC",
+      "required": true,
+      "mean_training": -0.02,
+      "scale_training": 0.27857
+    },
+    {
+      "name": "oni_trend_aso_jja_degc",
+      "dtype": "float",
+      "unit": "degC",
+      "required": true,
+      "mean_training": 0.0,
+      "scale_training": 0.45607
+    },
+    {
+      "name": "nino34_aso_sst_degc",
+      "dtype": "float",
+      "unit": "degC",
+      "required": true,
+      "mean_training": 26.778,
+      "scale_training": 0.76371
+    },
+    {
+      "name": "nino34_aso_anom_degc",
+      "dtype": "float",
+      "unit": "degC",
+      "required": true,
+      "mean_training": 0.0446,
+      "scale_training": 0.76387
+    },
+    {
+      "name": "nino34_oct_anom_degc",
+      "dtype": "float",
+      "unit": "degC",
+      "required": true,
+      "mean_training": 0.02,
+      "scale_training": 1.01272
+    },
+    {
+      "name": "nino34_trend_oct_aug_degc",
+      "dtype": "float",
+      "unit": "degC",
+      "required": true,
+      "mean_training": -0.034,
+      "scale_training": 0.55338
+    },
+    {
+      "name": "precip_oct_mm",
+      "dtype": "float",
+      "unit": "mm",
+      "required": true,
+      "mean_training": 39.78,
+      "scale_training": 8.08069
+    },
+    {
+      "name": "precip_oct_zscore",
+      "dtype": "float",
+      "unit": "dimensionless",
+      "required": true,
+      "mean_training": 0.1451,
+      "scale_training": 1.01834
+    },
+    {
+      "name": "precip_antecedent_spring_mm",
+      "dtype": "float",
+      "unit": "mm",
+      "required": true,
+      "mean_training": 55.28,
+      "scale_training": 9.96823
+    }
+  ],
+  "scaler_means": {
+    "oni_aso_degc": 0.04,
+    "oni_trend_aso_jas_degc": -0.02,
+    "oni_trend_aso_jja_degc": 0.0,
+    "nino34_aso_sst_degc": 26.778,
+    "nino34_aso_anom_degc": 0.0446,
+    "nino34_oct_anom_degc": 0.02,
+    "nino34_trend_oct_aug_degc": -0.034,
+    "precip_oct_mm": 39.78,
+    "precip_oct_zscore": 0.1451,
+    "precip_antecedent_spring_mm": 55.28
+  },
+  "scaler_scales": {
+    "oni_aso_degc": 0.78638,
+    "oni_trend_aso_jas_degc": 0.27857,
+    "oni_trend_aso_jja_degc": 0.45607,
+    "nino34_aso_sst_degc": 0.76371,
+    "nino34_aso_anom_degc": 0.76387,
+    "nino34_oct_anom_degc": 1.01272,
+    "nino34_trend_oct_aug_degc": 0.55338,
+    "precip_oct_mm": 8.08069,
+    "precip_oct_zscore": 1.01834,
+    "precip_antecedent_spring_mm": 9.96823
+  },
+  "intercept": -2.47186,
+  "coefficients": {
+    "oni_aso_degc": 0.2609,
+    "oni_trend_aso_jas_degc": 0.24121,
+    "oni_trend_aso_jja_degc": 0.22841,
+    "nino34_aso_sst_degc": 0.25854,
+    "nino34_aso_anom_degc": 0.25856,
+    "nino34_oct_anom_degc": 0.25453,
+    "nino34_trend_oct_aug_degc": 0.22696,
+    "precip_oct_mm": -0.24336,
+    "precip_oct_zscore": -0.24336,
+    "precip_antecedent_spring_mm": -0.24009
+  },
+  "fallback_base_rate": null,
+  "rolling_origin_metrics": {
+    "sample_size": 2,
+    "event_count": 0,
+    "observed_base_rate": 0.0,
+    "mean_forecast_probability": 0.0479,
+    "brier_score": 0.0023,
+    "brier_skill_score": 0.9735,
+    "log_loss": 0.04909,
+    "roc_auc": null,
+    "pr_auc": null,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1_score": 0.0,
+    "murphy": {
+      "reliability": 0.00229,
+      "resolution": 0.0,
+      "uncertainty": 0.0,
+      "within_bin_variance": 0.0
+    },
+    "expected_calibration_error": 0.0479,
+    "prediction_uncertainty_std": 0.002
+  },
+  "holdout_metrics": {
+    "sample_size": 2,
+    "event_count": 0,
+    "observed_base_rate": 0.0,
+    "mean_forecast_probability": 0.4328,
+    "brier_score": 0.19939,
+    "brier_skill_score": -3.9847,
+    "log_loss": 0.58618,
+    "roc_auc": null,
+    "pr_auc": null,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1_score": 0.0,
+    "murphy": {
+      "reliability": 0.19939,
+      "resolution": 0.0,
+      "uncertainty": 0.0,
+      "within_bin_variance": 0.0
+    },
+    "expected_calibration_error": 0.43283,
+    "prediction_uncertainty_std": 0.1098
+  },
+  "baseline_holdout_metrics": {
+    "sample_size": 2,
+    "event_count": 0,
+    "observed_base_rate": 0.0,
+    "mean_forecast_probability": 0.2,
+    "brier_score": 0.04,
+    "brier_skill_score": 0.0,
+    "log_loss": 0.22314,
+    "roc_auc": null,
+    "pr_auc": null,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1_score": 0.0,
+    "murphy": {
+      "reliability": 0.04,
+      "resolution": 0.0,
+      "uncertainty": 0.0,
+      "within_bin_variance": 0.0
+    },
+    "expected_calibration_error": 0.2,
+    "prediction_uncertainty_std": 0.0
+  },
+  "beats_baseline_on_holdout": false,
+  "holdout_bss": -3.9847,
+  "evaluation_report": {
+    "model_id": "enso_logistic_20261028_094311",
+    "target": "target_drought_p20",
+    "training_seasons": [
+      1982,
+      1983,
+      1984,
+      1985,
+      1986
+    ],
+    "holdout_seasons": [
+      1987,
+      1988
+    ],
+    "rolling_origin_brier_score": 0.0023,
+    "rolling_origin_bss": 0.9735,
+    "holdout_baseline_brier_score": 0.04,
+    "holdout_model_brier_score": 0.19939,
+    "holdout_bss": -3.9847,
+    "beats_baseline_on_holdout": false
+  },
+  "scientific_notice": "Evaluated using chronological rolling-origin and an untouched holdout period."
+}

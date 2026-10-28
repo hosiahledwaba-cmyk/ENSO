@@ -1,0 +1,154 @@
+% ENSO Shield: Living Scientific Manuscript in Springer LNCS Format
+% Conforms to Lecture Notes in Computer Science (LNCS) guidelines.
+% Compile with: pdflatex manuscript.tex && bibtex manuscript && pdflatex manuscript.tex
+
+\documentclass[runningheads]{llncs}
+
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{microtype}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{cite}
+
+\begin{document}
+
+\title{ENSO Shield: Cyber-Resilient Seasonal Rainfall-Risk Forecasting in Southern Africa through Cryptographic Provenance and Anomaly-Aware Machine Learning}
+\titlerunning{ENSO Shield: Cyber-Resilient Climate-Risk Forecasting}
+
+\author{Antigravity Research Team\inst{1}\orcidID{0000-0000-0000-0000}}
+\authorrunning{Antigravity Research Team}
+
+\institute{Advanced Computational Climatology and Systems Laboratory\\
+\email{research@enso-shield.internal}}
+
+\maketitle
+
+\begin{abstract}
+Seasonal climate forecasts inform multi-billion dollar agricultural planning, disaster preparedness, and famine early-warning systems across sub-Saharan Africa. However, operational forecasting pipelines routinely assume that ingested observational feeds (satellite products, ocean buoy telemetries, and climate indices) are uncompromised and authentic. In distributed cyber-physical environmental monitoring, this assumption creates a severe vulnerability: malicious adversaries, compromised automated weather stations, or corrupted ingestion pipelines can manipulate input features through False Data Injection (FDI), silently degrading forecast reliability and delaying emergency humanitarian mobilization.
+
+This paper introduces \textbf{ENSO Shield}, a research-led, CPU-first seasonal rainfall-risk forecasting platform designed to combine predictive meteorological skill with adversarial cyber-resilience. Focusing on the Southern African summer rainfall zone (Limpopo River Basin and Maize Belt), we establish an antecedent El Ni\~no--Southern Oscillation (ENSO) teleconnection pipeline targeting core austral summer (DJF) precipitation extremes. We formalize a rigorous, lookahead-free evaluation methodology: baseline climatological parameters and drought risk thresholds ($\le 20\text{th}$ percentile) are estimated strictly on an initial 24-season historical training partition (1981/82--2004/05), completely preserving the out-of-sample integrity of a 9-season holdout test set (2015/16--2023/24). To counter input tampering, ENSO Shield couples automated SHA-256 cryptographic provenance manifests with dynamic spatio-temporal anomaly screening. We define explicit mathematical metrics to quantify forecast degradation ($\Delta BS$) and defensive recovery efficiency ($RE$). This living manuscript documents the theoretical foundations, threat model, and experimental protocol, providing an auditable benchmark for verifiable, cyber-defensible climate intelligence.
+
+\keywords{El Ni\~no--Southern Oscillation \and Seasonal Drought Forecasting \and Southern Africa \and Cyber-Physical Resilience \and Adversarial Machine Learning \and Cryptographic Data Provenance.}
+\end{abstract}
+
+\section{Introduction and Research Problem}
+Accurate seasonal precipitation forecasting is critical to food security, water allocation, and disaster risk management across Southern Africa. In this semi-arid region, rain-fed agriculture dominates subsistence and commercial food production. Substantial interannual precipitation swings are physically driven by the El Ni\~no--Southern Oscillation (ENSO), where warm equatorial Pacific anomalies frequently trigger severe regional droughts, such as those observed in 1982/83, 1991/92, and the historic 2015/16 event.
+
+Simultaneously, the modernization of climate observation relies increasingly on distributed sensor networks, automated ingestion APIs, and cloud-hosted environmental data pipelines. This transition exposes the seasonal forecasting process to emerging cyber-physical threats. An adversary targeting agricultural commodities, speculative energy markets, or regional humanitarian stability can exploit unauthenticated data interfaces to execute False Data Injection (FDI) or temporal replay attacks. Despite substantial research into adversarial vulnerabilities in computer vision and electrical power grids~\cite{biggio2018wild,barreno2010security}, seasonal climate risk pipelines remain largely undefended against deliberate input corruption.
+
+ENSO Shield bridges this critical gap. The project investigates whether cryptographic provenance tracking and statistical anomaly screening can provably insulate seasonal rainfall-risk models against sensor corruption and adversarial manipulation without sacrificing baseline meteorological forecast skill.
+
+\section{Research Questions and Hypotheses}
+\subsection{Primary Research Question}
+To what extent can cryptographic provenance tracking and statistical anomaly screening defend seasonal rainfall-risk forecasts against adversarial data poisoning and sensor degradation without sacrificing baseline predictive skill in the Southern African summer rainfall zone?
+
+\subsection{Formal Hypotheses}
+\begin{itemize}
+    \item \textbf{Hypothesis $H_1$ (Baseline Predictive Skill):} Antecedent spring (August--October) equatorial Pacific sea surface temperature (SST) anomalies provide statistically significant probabilistic skill over climatological reference forecasts in predicting severe austral summer (DJF) rainfall deficits ($\tau_{20}$) in the study area:
+    \begin{equation}
+        BSS = 1 - \frac{BS_{\text{model}}}{BS_{\text{clim}}} > 0 \quad (\alpha = 0.05)
+    \end{equation}
+    \item \textbf{Hypothesis $H_2$ (Adversarial Fragility):} Unmitigated machine learning classifiers (Logistic Regression and Gradient Boosted Trees) subjected to bounded input poisoning ($\delta \le 1.5\sigma$) experience severe forecast degradation, leading to an increase in false-negative drought omissions $\ge 30\%$.
+    \item \textbf{Hypothesis $H_3$ (Defensive Cyber-Resilience):} A layered defense integrating SHA-256 provenance verification and dynamic anomaly screening achieves an Attack Detection Rate $ADR \ge 95\%$ with a False Positive Rate $FPR \le 5\%$, achieving a Defensive Recovery Efficiency $RE \ge 90\%$.
+\end{itemize}
+
+\section{Related Work}
+The teleconnection between equatorial Pacific SST anomalies and Southern African precipitation is well-established in physical meteorology~\cite{ropelewski1987global,reason2000enso,landman2012multi}. During warm ENSO phases, shifts in the regional Walker cell suppress the South Indian Convergence Zone (SICZ). In computational learning, modern statistical seasonal forecasting has shifted toward machine learning; however, operational platforms consistently overlook adversarial attack vectors~\cite{biggio2018wild,barreno2010security}.
+
+\section{Study Area and Data Formulation}
+\subsection{Geographic Domain}
+The selected study region $\Omega = [22.0^\circ\text{S}, 30.0^\circ\text{S}] \times [25.0^\circ\text{E}, 32.0^\circ\text{E}]$ encompasses the Limpopo River Basin and the South African commercial Maize Quadrangle.
+
+\subsection{Data Sources and Mathematical Formulations}
+Rainfall predictands are derived from CHIRPS-2.0 monthly satellite-gauge blended rasters~\cite{funk2015chirps}. Antecedent ocean predictors are sourced from NOAA CPC ERSSTv5 tables~\cite{huang2017extended}.
+
+\subsubsection{Zonal Precipitation Depth}
+For each month $m$, spatial mean precipitation over domain $\Omega$ is:
+\begin{equation}
+    \bar{p}(m) = \frac{1}{|\Omega|} \iint_{\Omega} p(x, y, m) \, dx \, dy
+\end{equation}
+
+\subsubsection{Seasonal Accumulation and Indexing}
+Season $Y$ is indexed by the calendar year of its January/February components. Total seasonal accumulation is defined over December ($Y-1$), January ($Y$), and February ($Y$):
+\begin{equation}
+    P_Y = \bar{p}(\text{Dec}_{Y-1}) + \bar{p}(\text{Jan}_Y) + \bar{p}(\text{Feb}_Y)
+\end{equation}
+
+\subsubsection{Prevention of Lookahead Climatology Leakage}
+Baseline statistics are computed strictly over the training partition $\mathcal{T}_{\text{train}} = \{1982, \dots, 2005\}$ ($N_{\text{train}} = 24$ seasons):
+\begin{equation}
+    \mu_{\text{train}} = \frac{1}{N_{\text{train}}} \sum_{Y \in \mathcal{T}_{\text{train}}} P_Y, \quad
+    \sigma_{\text{train}} = \sqrt{\frac{1}{N_{\text{train}}-1}\sum_{Y \in \mathcal{T}_{\text{train}}} (P_Y - \mu_{\text{train}})^2}
+\end{equation}
+\begin{equation}
+    z_Y = \frac{P_Y - \mu_{\text{train}}}{\sigma_{\text{train}}}
+\end{equation}
+The severe drought threshold $\tau_{20}$ is frozen as the 20th empirical percentile of training rainfall:
+\begin{equation}
+    \tau_{20} = Q_{0.20}\left(\{P_Y\}_{Y \in \mathcal{T}_{\text{train}}}\right), \quad
+    o_Y = \mathbf{1}_{\{P_Y \le \tau_{20}\}}
+\end{equation}
+
+\section{Forecasting and Defensive Methodology}
+\subsection{Predictor Timing and Lead Time}
+Forecasts are issued on \textbf{November 1st} of year $Y-1$. Predictor features include August--October ONI, October Niño 3.4 SST anomalies, and antecedent October regional precipitation, providing an operational lead time of 1 to 3 months.
+
+\subsection{Threat Model and Defensive Controls}
+We model False Data Injection (FDI) attacks $\mathbf{x}_{\text{attack}} = \mathbf{x} + \boldsymbol{\delta}$. Defensive mechanisms enforce SHA-256 cryptographic provenance checking and Mahalanobis distance outlier screening:
+\begin{equation}
+    D_M^2(\mathbf{x}) = (\mathbf{x} - \boldsymbol{\mu}_{\mathbf{x}})^T \boldsymbol{\Sigma}_{\mathbf{x}}^{-1} (\mathbf{x} - \boldsymbol{\mu}_{\mathbf{x}})
+\end{equation}
+
+\section{Evaluation Protocol and Metrics}
+Probabilistic forecast accuracy is evaluated via the Brier Score ($BS$) and Brier Skill Score ($BSS$)~\cite{brier1950verification,murphy1973new}:
+\begin{equation}
+    BS = \frac{1}{N} \sum_{Y=1}^N (f_Y - o_Y)^2, \quad BSS = 1 - \frac{BS_{\text{model}}}{BS_{\text{clim}}}
+\end{equation}
+Defensive resilience is quantified by the Defensive Recovery Efficiency ($RE$):
+\begin{equation}
+    RE = 1 - \frac{BS(f_{\text{defended}}, o) - BS(f_{\text{clean}}, o)}{BS(f_{\text{attack}}, o) - BS(f_{\text{clean}}, o)}
+\end{equation}
+
+\section{Empirical Results (Pending Implementation)}
+\begin{table}[ht]
+\centering
+\caption{Baseline Predictive Skill on Out-of-Sample Test Partition (2016--2024) [Pending Execution].}
+\label{tab:baseline}
+\begin{tabular}{lcccccc}
+\toprule
+Model Architecture & Brier Score ($BS$) & $BSS$ vs Clim & ROC-AUC & Reliability & Resolution \\
+\midrule
+Climatological Reference & \textit{[Pending]} & 0.000 (ref) & 0.500 & \textit{[Pending]} & 0.000 \\
+Logistic Regression ($L_2$) & \textit{[Pending]} & \textit{[Pending]} & \textit{[Pending]} & \textit{[Pending]} & \textit{[Pending]} \\
+LightGBM CPU Ensemble & \textit{[Pending]} & \textit{[Pending]} & \textit{[Pending]} & \textit{[Pending]} & \textit{[Pending]} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[ht]
+\centering
+\caption{Adversarial Attack Vulnerability and Defensive Recovery [Pending Execution].}
+\label{tab:security}
+\begin{tabular}{lcccccc}
+\toprule
+Attack Formulation & Unmitigated $BS$ & Degradation $\Delta BS$ & Defended $BS$ & $ADR$ (\%) & $RE$ \\
+\midrule
+Clean Baseline ($\delta=0$) & \textit{[Pending]} & 0.000 & \textit{[Pending]} & N/A & 1.000 \\
+Negative Bias ($\delta = -1.5\sigma$) & \textit{[Pending]} & \textit{[Pending]} & \textit{[Pending]} & \textit{[Pending]} & \textit{[Pending]} \\
+Temporal Telemetry Replay & \textit{[Pending]} & \textit{[Pending]} & \textit{[Pending]} & \textit{[Pending]} & \textit{[Pending]} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Threats to Validity and Reproducibility}
+Evaluation is limited by the finite 44-year observational record. Mitigations include strict chronological holdout splits and bootstrap significance estimation. All pipelines and experiment records are preserved under \texttt{research/protocol/} with machine-executable verification scripts.
+
+\section{Conclusion and Future Work}
+\textit{[Section to be completed upon experimental execution of Milestones 2 and 3]}
+
+\bibliographystyle{splncs04}
+\bibliography{references}
+
+\end{document}

@@ -1,0 +1,85 @@
+# ENSO Shield local stack: API, Web frontend, and PostgreSQL database.
+# Copy .env.example to .env and adjust before running `docker compose up --build`.
+name: enso-shield
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${ENSO_DB_NAME:-enso_shield}
+      POSTGRES_USER: ${ENSO_DB_USER:-enso}
+      POSTGRES_PASSWORD: ${ENSO_DB_PASSWORD:-enso_dev_password}
+    ports:
+      - "127.0.0.1:${ENSO_DB_PORT:-5433}:5432"
+    volumes:
+      - enso_pgdata:/var/lib/postgresql/data
+      - ./infrastructure/database/init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${ENSO_DB_USER:-enso} -d ${ENSO_DB_NAME:-enso_shield}"]
+      interval: 3s
+      timeout: 3s
+      retries: 10
+      start_period: 3s
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+
+  api:
+    build:
+      context: .
+      dockerfile: infrastructure/docker/api.Dockerfile
+    environment:
+      ENSO_ENV: ${ENSO_ENV:-development}
+      ENSO_LOG_LEVEL: ${ENSO_LOG_LEVEL:-INFO}
+      ENSO_API_CORS_ORIGINS: ${ENSO_API_CORS_ORIGINS:-http://localhost:5173,http://localhost:8080}
+      ENSO_API_ALLOWED_HOSTS: ${ENSO_API_ALLOWED_HOSTS:-localhost,127.0.0.1,api,web}
+      ENSO_API_DOCS_ENABLED: ${ENSO_API_DOCS_ENABLED:-true}
+      ENSO_DB_HOST: ${ENSO_CONTAINER_DB_HOST:-db}
+      ENSO_DB_PORT: ${ENSO_CONTAINER_DB_PORT:-5432}
+      ENSO_DB_USER: ${ENSO_DB_USER:-enso}
+      ENSO_DB_PASSWORD: ${ENSO_DB_PASSWORD:-enso_dev_password}
+      ENSO_DB_NAME: ${ENSO_DB_NAME:-enso_shield}
+    ports:
+      - "127.0.0.1:${ENSO_API_PORT:-8000}:8000"
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models
+      - ./reports:/app/reports
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/health/ready', timeout=2).status == 200 else 1)"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    cap_drop: [ALL]
+    restart: unless-stopped
+
+  web:
+    build:
+      context: .
+      dockerfile: infrastructure/docker/web.Dockerfile
+      args:
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL:-http://localhost:8000}
+    ports:
+      - "127.0.0.1:${ENSO_WEB_PORT:-8080}:8080"
+    depends_on:
+      api:
+        condition: service_healthy
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    cap_drop: [ALL]
+    restart: unless-stopped
+
+volumes:
+  enso_pgdata:
+    name: enso_pgdata

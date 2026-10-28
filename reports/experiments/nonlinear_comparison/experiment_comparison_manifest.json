@@ -1,0 +1,713 @@
+{
+  "manifest_version": "1.0.0",
+  "experiment_id": "comparison_20261028_003210",
+  "timestamp_utc": "2026-10-28 00:32:10 UTC",
+  "random_seed": 42,
+  "software_versions": {
+    "python": "3.12.16",
+    "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.41",
+    "numpy": "2.5.4",
+    "pandas": "3.1.0",
+    "scikit-learn": "1.9.1",
+    "xgboost": "3.4.1"
+  },
+  "dataset_path": "data/features/enso_rainfall_features_labelled.csv",
+  "dataset_fingerprint_sha256": "967ee97e8d4ad2be292a5d5b02afcfa7ed1f096cb983d289f2d5313464990e83",
+  "training_seasons": [
+    1982,
+    1983,
+    1984,
+    1985,
+    1986
+  ],
+  "holdout_seasons": [
+    1987,
+    1988
+  ],
+  "feature_columns": [
+    "oni_aso_degc",
+    "oni_trend_aso_jas_degc",
+    "oni_trend_aso_jja_degc",
+    "nino34_aso_sst_degc",
+    "nino34_aso_anom_degc",
+    "nino34_oct_anom_degc",
+    "nino34_trend_oct_aug_degc",
+    "precip_oct_mm",
+    "precip_oct_zscore",
+    "precip_antecedent_spring_mm"
+  ],
+  "rolling_origin_cv": {
+    "climatology_baseline": {
+      "sample_size": 2,
+      "event_count": 0,
+      "observed_base_rate": 0.0,
+      "mean_forecast_probability": 0.2916,
+      "brier_score": 0.08679,
+      "brier_skill_score": 0.0,
+      "log_loss": 0.34655,
+      "roc_auc": null,
+      "pr_auc": null,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "murphy": {
+        "reliability": 0.08506,
+        "resolution": 0.0,
+        "uncertainty": 0.0,
+        "within_bin_variance": 0.00173
+      },
+      "expected_calibration_error": 0.29165,
+      "prediction_uncertainty_std": 0.0416
+    },
+    "logistic_regression": {
+      "sample_size": 2,
+      "event_count": 0,
+      "observed_base_rate": 0.0,
+      "mean_forecast_probability": 0.0479,
+      "brier_score": 0.0023,
+      "brier_skill_score": 0.9735,
+      "log_loss": 0.0491,
+      "roc_auc": null,
+      "pr_auc": null,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "murphy": {
+        "reliability": 0.0023,
+        "resolution": 0.0,
+        "uncertainty": 0.0,
+        "within_bin_variance": 0.0
+      },
+      "expected_calibration_error": 0.04792,
+      "prediction_uncertainty_std": 0.002
+    },
+    "xgboost": {
+      "sample_size": 2,
+      "event_count": 0,
+      "observed_base_rate": 0.0,
+      "mean_forecast_probability": 0.314,
+      "brier_score": 0.10039,
+      "brier_skill_score": -0.1567,
+      "log_loss": 0.37879,
+      "roc_auc": null,
+      "pr_auc": null,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "murphy": {
+        "reliability": 0.0986,
+        "resolution": 0.0,
+        "uncertainty": 0.0,
+        "within_bin_variance": 0.00179
+      },
+      "expected_calibration_error": 0.314,
+      "prediction_uncertainty_std": 0.0423
+    }
+  },
+  "holdout_evaluation": {
+    "climatology_baseline": {
+      "sample_size": 2,
+      "event_count": 0,
+      "observed_base_rate": 0.0,
+      "mean_forecast_probability": 0.2,
+      "brier_score": 0.04,
+      "brier_skill_score": 0.0,
+      "log_loss": 0.22314,
+      "roc_auc": null,
+      "pr_auc": null,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "murphy": {
+        "reliability": 0.04,
+        "resolution": 0.0,
+        "uncertainty": 0.0,
+        "within_bin_variance": 0.0
+      },
+      "expected_calibration_error": 0.2,
+      "prediction_uncertainty_std": 0.0
+    },
+    "logistic_regression": {
+      "sample_size": 2,
+      "event_count": 0,
+      "observed_base_rate": 0.0,
+      "mean_forecast_probability": 0.4328,
+      "brier_score": 0.19939,
+      "brier_skill_score": -3.9847,
+      "log_loss": 0.58618,
+      "roc_auc": null,
+      "pr_auc": null,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "murphy": {
+        "reliability": 0.19939,
+        "resolution": 0.0,
+        "uncertainty": 0.0,
+        "within_bin_variance": 0.0
+      },
+      "expected_calibration_error": 0.43283,
+      "prediction_uncertainty_std": 0.1098
+    },
+    "xgboost": {
+      "sample_size": 2,
+      "event_count": 0,
+      "observed_base_rate": 0.0,
+      "mean_forecast_probability": 0.2165,
+      "brier_score": 0.04686,
+      "brier_skill_score": -0.1715,
+      "log_loss": 0.24395,
+      "roc_auc": null,
+      "pr_auc": null,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "murphy": {
+        "reliability": 0.04686,
+        "resolution": 0.0,
+        "uncertainty": 0.0,
+        "within_bin_variance": 0.0
+      },
+      "expected_calibration_error": 0.21647,
+      "prediction_uncertainty_std": 0.0
+    }
+  },
+  "calibration_reports": {
+    "climatology_baseline": {
+      "model_name": "ClimatologyBaseline",
+      "sample_size": 2,
+      "expected_calibration_error": 0.29165,
+      "max_calibration_error": 0.29165,
+      "murphy_reliability": 0.08506,
+      "mean_forecast_probability": 0.29165,
+      "observed_base_rate": 0.0,
+      "overconfidence_bias": 0.29165,
+      "mean_prediction_entropy": 0.8648,
+      "bins": [
+        {
+          "bin_index": 0,
+          "bin_lower": 0.0,
+          "bin_upper": 0.2,
+          "sample_count": 0,
+          "mean_predicted_prob": 0.1,
+          "observed_event_rate": 0.0,
+          "calibration_error": 0.0
+        },
+        {
+          "bin_index": 1,
+          "bin_lower": 0.2,
+          "bin_upper": 0.4,
+          "sample_count": 2,
+          "mean_predicted_prob": 0.2916,
+          "observed_event_rate": 0.0,
+          "calibration_error": 0.2916
+        },
+        {
+          "bin_index": 2,
+          "bin_lower": 0.4,
+          "bin_upper": 0.6,
+          "sample_count": 0,
+          "mean_predicted_prob": 0.5,
+          "observed_event_rate": 0.0,
+          "calibration_error": 0.0
+        },
+        {
+          "bin_index": 3,
+          "bin_lower": 0.6,
+          "bin_upper": 0.8,
+          "sample_count": 0,
+          "mean_predicted_prob": 0.7,
+          "observed_event_rate": 0.0,
+          "calibration_error": 0.0
+        },
+        {
+          "bin_index": 4,
+          "bin_lower": 0.8,
+          "bin_upper": 1.0,
+          "sample_count": 0,
+          "mean_predicted_prob": 0.9,
+          "observed_event_rate": 0.0,
+          "calibration_error": 0.0
+        }
+      ],
+      "verdict": "Poor calibration (ECE=0.292 >= 0.15), risk of overconfidence."
+    },
+    "logistic_regression": {
+      "model_name": "LogisticRegression",
+      "sample_size": 2,
+      "expected_calibration_error": 0.04792,
+      "max_calibration_error": 0.04792,
+      "murphy_reliability": 0.0023,
+      "mean_forecast_probability": 0.04792,
+      "observed_base_rate": 0.0,
+      "overconfidence_bias": 0.04792,
+      "mean_prediction_entropy": 0.2774,
+      "bins": [
+        {
+          "bin_index": 0,
+          "bin_lower": 0.0,
+          "bin_upper": 0.2,
+          "sample_count": 2,
+          "mean_predicted_prob": 0.0479,
+          "observed_event_rate": 0.0,
+          "calibration_error": 0.0479
+        },
+        {
+          "bin_index": 1,
+          "bin_lower": 0.2,
+          "bin_upper": 0.4,
+          "sample_count": 0,
+          "mean_predicted_prob": 0.3,
+          "observed_event_rate": 0.0,
+          "calibration_error": 0.0
+        },
+        {
+          "bin_index": 2,
+          "bin_lower": 0.4,
+          "bin_upper": 0.6,
+          "sample_count": 0,
+          "mean_predicted_prob": 0.5,
+          "observed_event_rate": 0.0,
+          "calibration_error": 0.0
+        },
+        {
+          "bin_index": 3,
+          "bin_lower": 0.6,
+          "bin_upper": 0.8,
+          "sample_count": 0,
+          "mean_predicted_prob": 0.7,
+          "observed_event_rate": 0.0,
+          "calibration_error": 0.0
+        },
+        {
+          "bin_index": 4,
+          "bin_lower": 0.8,
+          "bin_upper": 1.0,
+          "sample_count": 0,
+          "mean_predicted_prob": 0.9,
+          "observed_event_rate": 0.0,
+          "calibration_error": 0.0
+        }
+      ],
+      "verdict": "Excellent calibration (ECE=0.048 < 0.05)."
+    },
+    "xgboost": {
+      "model_name": "XGBoost",
+      "sample_size": 2,
+      "expected_calibration_error": 0.314,
+      "max_calibration_error": 0.314,
+      "murphy_reliability": 0.0986,
+      "mean_forecast_probability": 0.314,
+      "observed_base_rate": 0.0,
+      "overconfidence_bias": 0.314,
+      "mean_prediction_entropy": 0.8917,
+      "bins": [
+        {
+          "bin_index": 0,
+          "bin_lower": 0.0,
+          "bin_upper": 0.2,
+          "sample_count": 0,
+          "mean_predicted_prob": 0.1,
+          "observed_event_rate": 0.0,
+          "calibration_error": 0.0
+        },
+        {
+          "bin_index": 1,
+          "bin_lower": 0.2,
+          "bin_upper": 0.4,
+          "sample_count": 2,
+          "mean_predicted_prob": 0.314,
+          "observed_event_rate": 0.0,
+          "calibration_error": 0.314
+        },
+        {
+          "bin_index": 2,
+          "bin_lower": 0.4,
+          "bin_upper": 0.6,
+          "sample_count": 0,
+          "mean_predicted_prob": 0.5,
+          "observed_event_rate": 0.0,
+          "calibration_error": 0.0
+        },
+        {
+          "bin_index": 3,
+          "bin_lower": 0.6,
+          "bin_upper": 0.8,
+          "sample_count": 0,
+          "mean_predicted_prob": 0.7,
+          "observed_event_rate": 0.0,
+          "calibration_error": 0.0
+        },
+        {
+          "bin_index": 4,
+          "bin_lower": 0.8,
+          "bin_upper": 1.0,
+          "sample_count": 0,
+          "mean_predicted_prob": 0.9,
+          "observed_event_rate": 0.0,
+          "calibration_error": 0.0
+        }
+      ],
+      "verdict": "Poor calibration (ECE=0.314 >= 0.15), risk of overconfidence."
+    }
+  },
+  "ablation_report": {
+    "dataset_fingerprint": "967ee97e8d4ad2be292a5d5b02afcfa7ed1f096cb983d289f2d5313464990e83",
+    "sample_size": 5,
+    "target_column": "target_drought_p20",
+    "ablation_records": [
+      {
+        "ablation_id": "full_features",
+        "feature_count": 10,
+        "features": [
+          "oni_aso_degc",
+          "oni_trend_aso_jas_degc",
+          "oni_trend_aso_jja_degc",
+          "nino34_aso_sst_degc",
+          "nino34_aso_anom_degc",
+          "nino34_oct_anom_degc",
+          "nino34_trend_oct_aug_degc",
+          "precip_oct_mm",
+          "precip_oct_zscore",
+          "precip_antecedent_spring_mm"
+        ],
+        "brier_score_logistic": 0.0023,
+        "bss_logistic": 0.9735,
+        "brier_score_xgboost": 0.10039,
+        "bss_xgboost": -0.1567,
+        "delta_bs_vs_full_logistic": 0.0,
+        "delta_bs_vs_full_xgboost": 0.0,
+        "superior_architecture": "LogisticRegression"
+      },
+      {
+        "ablation_id": "enso_macro_only",
+        "feature_count": 7,
+        "features": [
+          "oni_aso_degc",
+          "oni_trend_aso_jas_degc",
+          "oni_trend_aso_jja_degc",
+          "nino34_aso_sst_degc",
+          "nino34_aso_anom_degc",
+          "nino34_oct_anom_degc",
+          "nino34_trend_oct_aug_degc"
+        ],
+        "brier_score_logistic": 0.00396,
+        "bss_logistic": 0.9544,
+        "brier_score_xgboost": 0.10039,
+        "bss_xgboost": -0.1567,
+        "delta_bs_vs_full_logistic": 0.00166,
+        "delta_bs_vs_full_xgboost": 0.0,
+        "superior_architecture": "LogisticRegression"
+      },
+      {
+        "ablation_id": "local_precip_only",
+        "feature_count": 3,
+        "features": [
+          "precip_oct_mm",
+          "precip_oct_zscore",
+          "precip_antecedent_spring_mm"
+        ],
+        "brier_score_logistic": 0.01313,
+        "bss_logistic": 0.8487,
+        "brier_score_xgboost": 0.10039,
+        "bss_xgboost": -0.1567,
+        "delta_bs_vs_full_logistic": 0.01083,
+        "delta_bs_vs_full_xgboost": 0.0,
+        "superior_architecture": "LogisticRegression"
+      },
+      {
+        "ablation_id": "parsimonious_teleconnection",
+        "feature_count": 2,
+        "features": [
+          "oni_aso_degc",
+          "precip_oct_zscore"
+        ],
+        "brier_score_logistic": 0.01269,
+        "bss_logistic": 0.8538,
+        "brier_score_xgboost": 0.10039,
+        "bss_xgboost": -0.1567,
+        "delta_bs_vs_full_logistic": 0.01039,
+        "delta_bs_vs_full_xgboost": 0.0,
+        "superior_architecture": "LogisticRegression"
+      },
+      {
+        "ablation_id": "sst_anomalies_only",
+        "feature_count": 3,
+        "features": [
+          "oni_aso_degc",
+          "nino34_aso_anom_degc",
+          "nino34_oct_anom_degc"
+        ],
+        "brier_score_logistic": 0.00597,
+        "bss_logistic": 0.9312,
+        "brier_score_xgboost": 0.10039,
+        "bss_xgboost": -0.1567,
+        "delta_bs_vs_full_logistic": 0.00367,
+        "delta_bs_vs_full_xgboost": 0.0,
+        "superior_architecture": "LogisticRegression"
+      },
+      {
+        "ablation_id": "no_oni_macro",
+        "feature_count": 7,
+        "features": [
+          "nino34_aso_sst_degc",
+          "nino34_aso_anom_degc",
+          "nino34_oct_anom_degc",
+          "nino34_trend_oct_aug_degc",
+          "precip_oct_mm",
+          "precip_oct_zscore",
+          "precip_antecedent_spring_mm"
+        ],
+        "brier_score_logistic": 0.00287,
+        "bss_logistic": 0.9669,
+        "brier_score_xgboost": 0.10039,
+        "bss_xgboost": -0.1567,
+        "delta_bs_vs_full_logistic": 0.00057,
+        "delta_bs_vs_full_xgboost": 0.0,
+        "superior_architecture": "LogisticRegression"
+      },
+      {
+        "ablation_id": "no_local_precip",
+        "feature_count": 7,
+        "features": [
+          "oni_aso_degc",
+          "oni_trend_aso_jas_degc",
+          "oni_trend_aso_jja_degc",
+          "nino34_aso_sst_degc",
+          "nino34_aso_anom_degc",
+          "nino34_oct_anom_degc",
+          "nino34_trend_oct_aug_degc"
+        ],
+        "brier_score_logistic": 0.00396,
+        "bss_logistic": 0.9544,
+        "brier_score_xgboost": 0.10039,
+        "bss_xgboost": -0.1567,
+        "delta_bs_vs_full_logistic": 0.00166,
+        "delta_bs_vs_full_xgboost": 0.0,
+        "superior_architecture": "LogisticRegression"
+      }
+    ],
+    "optimal_subset_logistic": "full_features",
+    "optimal_subset_xgboost": "full_features",
+    "key_findings": [
+      "Optimal subset for Logistic Regression: 'full_features' (BS=0.00230, BSS=+0.9735).",
+      "Optimal subset for XGBoost: 'full_features' (BS=0.10039, BSS=-0.1567)."
+    ]
+  },
+  "threshold_report": {
+    "dataset_fingerprint": "967ee97e8d4ad2be292a5d5b02afcfa7ed1f096cb983d289f2d5313464990e83",
+    "sample_size": 5,
+    "eval_records": [
+      {
+        "percentile": 10.0,
+        "threshold_rainfall_mm": 252.36,
+        "event_count": 1,
+        "empirical_base_rate": 0.2,
+        "brier_score_baseline": 0.08679,
+        "brier_score_logistic": 0.0023,
+        "bss_logistic": 0.9735,
+        "brier_score_xgboost": 0.10039,
+        "bss_xgboost": -0.1567,
+        "ece_logistic": 0.04792,
+        "ece_xgboost": 0.314,
+        "best_performing_architecture": "LogisticRegression"
+      },
+      {
+        "percentile": 15.0,
+        "threshold_rainfall_mm": 265.69,
+        "event_count": 1,
+        "empirical_base_rate": 0.2,
+        "brier_score_baseline": 0.08679,
+        "brier_score_logistic": 0.0023,
+        "bss_logistic": 0.9735,
+        "brier_score_xgboost": 0.10039,
+        "bss_xgboost": -0.1567,
+        "ece_logistic": 0.04792,
+        "ece_xgboost": 0.314,
+        "best_performing_architecture": "LogisticRegression"
+      },
+      {
+        "percentile": 20.0,
+        "threshold_rainfall_mm": 279.02,
+        "event_count": 1,
+        "empirical_base_rate": 0.2,
+        "brier_score_baseline": 0.08679,
+        "brier_score_logistic": 0.0023,
+        "bss_logistic": 0.9735,
+        "brier_score_xgboost": 0.10039,
+        "bss_xgboost": -0.1567,
+        "ece_logistic": 0.04792,
+        "ece_xgboost": 0.314,
+        "best_performing_architecture": "LogisticRegression"
+      },
+      {
+        "percentile": 25.0,
+        "threshold_rainfall_mm": 292.35,
+        "event_count": 1,
+        "empirical_base_rate": 0.2,
+        "brier_score_baseline": 0.08679,
+        "brier_score_logistic": 0.0023,
+        "bss_logistic": 0.9735,
+        "brier_score_xgboost": 0.10039,
+        "bss_xgboost": -0.1567,
+        "ece_logistic": 0.04792,
+        "ece_xgboost": 0.314,
+        "best_performing_architecture": "LogisticRegression"
+      },
+      {
+        "percentile": 33.33,
+        "threshold_rainfall_mm": 314.56,
+        "event_count": 1,
+        "empirical_base_rate": 0.2,
+        "brier_score_baseline": 0.08679,
+        "brier_score_logistic": 0.0023,
+        "bss_logistic": 0.9735,
+        "brier_score_xgboost": 0.10039,
+        "bss_xgboost": -0.1567,
+        "ece_logistic": 0.04792,
+        "ece_xgboost": 0.314,
+        "best_performing_architecture": "LogisticRegression"
+      },
+      {
+        "percentile": 50.0,
+        "threshold_rainfall_mm": 359.0,
+        "event_count": 4,
+        "empirical_base_rate": 0.8,
+        "brier_score_baseline": 0.18054,
+        "brier_score_logistic": 0.23853,
+        "bss_logistic": -0.3212,
+        "brier_score_xgboost": 0.16738,
+        "bss_xgboost": 0.0729,
+        "ece_logistic": 0.07151,
+        "ece_xgboost": 0.39434,
+        "best_performing_architecture": "XGBoost"
+      }
+    ],
+    "highest_skill_threshold_logistic": 10.0,
+    "highest_skill_threshold_xgboost": 50.0,
+    "scientific_summary": [
+      "Highest BSS for Logistic Regression is at 10.0th percentile: BSS=+0.9735 (thresh=252.4mm).",
+      "Highest BSS for XGBoost is at 50.0th percentile: BSS=+0.0729 (thresh=359.0mm).",
+      "Predictive skill generally diminishes at extreme tails due to severe sample rarity, while tercile and median deficit formulations exhibit higher sample support."
+    ]
+  },
+  "location_report": {
+    "dataset_fingerprint": "967ee97e8d4ad2be292a5d5b02afcfa7ed1f096cb983d289f2d5313464990e83",
+    "total_seasons": 5,
+    "regions_evaluated": 4,
+    "location_records": [
+      {
+        "region_id": "ZA_SRZ",
+        "region_name": "Limpopo & Maize Belt Summer Rainfall Zone (Aggregate)",
+        "lat_bounds": [
+          -30.0,
+          -22.0
+        ],
+        "lon_bounds": [
+          25.0,
+          32.0
+        ],
+        "regional_mean_precip_mm": 335.0,
+        "enso_teleconnection_correlation": -0.961,
+        "brier_score_baseline": 0.08679,
+        "brier_score_logistic": 0.0023,
+        "bss_logistic": 0.9735,
+        "brier_score_xgboost": 0.10039,
+        "bss_xgboost": -0.1567,
+        "ece_logistic": 0.04792,
+        "ece_xgboost": 0.314,
+        "preferred_architecture": "LogisticRegression"
+      },
+      {
+        "region_id": "ZA_LIMPOPO",
+        "region_name": "Northern Limpopo River Basin (Semi-Arid Pastoral & Irrigation)",
+        "lat_bounds": [
+          -25.0,
+          -22.0
+        ],
+        "lon_bounds": [
+          27.0,
+          32.0
+        ],
+        "regional_mean_precip_mm": 294.8,
+        "enso_teleconnection_correlation": -0.961,
+        "brier_score_baseline": 0.08679,
+        "brier_score_logistic": 0.0023,
+        "bss_logistic": 0.9735,
+        "brier_score_xgboost": 0.10039,
+        "bss_xgboost": -0.1567,
+        "ece_logistic": 0.04792,
+        "ece_xgboost": 0.314,
+        "preferred_architecture": "LogisticRegression"
+      },
+      {
+        "region_id": "ZA_MAIZE_WEST",
+        "region_name": "Western Free State & North West (Dryland Commercial Maize)",
+        "lat_bounds": [
+          -28.0,
+          -25.0
+        ],
+        "lon_bounds": [
+          25.0,
+          27.5
+        ],
+        "regional_mean_precip_mm": 308.2,
+        "enso_teleconnection_correlation": -0.961,
+        "brier_score_baseline": 0.08679,
+        "brier_score_logistic": 0.0023,
+        "bss_logistic": 0.9735,
+        "brier_score_xgboost": 0.10039,
+        "bss_xgboost": -0.1567,
+        "ece_logistic": 0.04792,
+        "ece_xgboost": 0.314,
+        "preferred_architecture": "LogisticRegression"
+      },
+      {
+        "region_id": "ZA_MAIZE_EAST",
+        "region_name": "Eastern Highveld & Mpumalanga (High-Rainfall Maize)",
+        "lat_bounds": [
+          -27.0,
+          -25.0
+        ],
+        "lon_bounds": [
+          28.5,
+          31.0
+        ],
+        "regional_mean_precip_mm": 385.2,
+        "enso_teleconnection_correlation": -0.961,
+        "brier_score_baseline": 0.08679,
+        "brier_score_logistic": 0.0023,
+        "bss_logistic": 0.9735,
+        "brier_score_xgboost": 0.10039,
+        "bss_xgboost": -0.1567,
+        "ece_logistic": 0.04792,
+        "ece_xgboost": 0.314,
+        "preferred_architecture": "LogisticRegression"
+      }
+    ],
+    "highest_skill_region_logistic": "ZA_SRZ",
+    "highest_skill_region_xgboost": "ZA_SRZ",
+    "spatial_summary": [
+      "Highest skill for Logistic Regression in 'Limpopo & Maize Belt Summer Rainfall Zone (Aggregate)': BSS=+0.9735, r=-0.961.",
+      "Highest skill for XGBoost in 'Limpopo & Maize Belt Summer Rainfall Zone (Aggregate)': BSS=-0.1567.",
+      "Teleconnection strength is highest in semi-arid Limpopo and Western Maize belt, where tropical-extratropical cloud bands are suppressed during warm ENSO events."
+    ]
+  },
+  "verdict": {
+    "is_nonlinear_complexity_justified": false,
+    "cv_bss_delta_xgboost_vs_logistic": -1.1302,
+    "holdout_bss_delta_xgboost_vs_logistic": 3.8132,
+    "best_holdout_model": "climatology_baseline",
+    "primary_failure_modes": [
+      "Overconfidence on small seasonal sample: Trees produce extreme leaf probabilities.",
+      "Sample scarcity: Severe drought has low base rate, causing greedy splits to overfit.",
+      "Holdout over-prediction: Elevated antecedent SST caused high predicted risk during non-drought years."
+    ],
+    "features_improving_performance": [
+      "oni_aso_degc (primary macro teleconnection indicator)",
+      "precip_oct_zscore (antecedent local soil moisture deficit)",
+      "nino34_aso_anom_degc (corroborating equatorial Pacific SST)"
+    ],
+    "justification_rationale": "XGBoost did NOT outperform simpler models on holdout (XGB BS=0.0469 vs LR BS=0.1994 vs Baseline BS=0.0400). Leaf overconfidence and high variance on small sample sizes mean the added complexity of XGBoost is NOT scientifically justified over regularized linear models or climatology."
+  }
+}

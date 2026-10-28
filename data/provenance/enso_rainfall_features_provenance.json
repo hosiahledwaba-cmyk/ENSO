@@ -1,0 +1,102 @@
+{
+  "manifest_version": "2.0",
+  "dataset_id": "enso_rainfall_features_labelled",
+  "source_identifier": "enso_rainfall_features_labelled",
+  "source_name": "ENSO Shield Labelled Feature and Target Dataset",
+  "source_version": "1.0-features",
+  "dataset_version": "1.0-features",
+  "source_url": null,
+  "source_timestamp_utc": null,
+  "licence": "CC-BY-4.0",
+  "citation": "ENSO Shield (2026). Zero-Lookahead ENSO Rainfall Risk Features Benchmark.",
+  "ingestion_timestamp_utc": "2026-10-28T01:39:24.351656+00:00",
+  "content_digest": "967ee97e8d4ad2be292a5d5b02afcfa7ed1f096cb983d289f2d5313464990e83",
+  "raw_sha256": "c482499ed8cbed3452a3330125a949d4c58f8f15f6db6ad1fd6a2e33e6939924",
+  "cleaned_sha256": "967ee97e8d4ad2be292a5d5b02afcfa7ed1f096cb983d289f2d5313464990e83",
+  "derived_sha256": null,
+  "record_count": 7,
+  "date_range": {
+    "start_season": "1982",
+    "end_season": "1988"
+  },
+  "units": {
+    "oni_aso_degc": "degC",
+    "nino34_aso_sst_degc": "degC",
+    "nino34_aso_anom_degc": "degC",
+    "precip_oct_mm": "mm/month",
+    "seasonal_precip_djf_mm": "mm/season",
+    "target_drought_p20": "binary {0, 1}",
+    "target_below_normal_p33": "binary {0, 1}"
+  },
+  "spatial_bounds": {
+    "lat_min": -30.0,
+    "lat_max": -22.0,
+    "lon_min": 25.0,
+    "lon_max": 32.0
+  },
+  "validation_status": "PASSED",
+  "validation_outcome": {
+    "is_valid": true,
+    "status": "PASSED",
+    "total_records": 7,
+    "error_count": 0,
+    "errors": [],
+    "timestamp_utc": "2026-10-28T01:39:24.351656+00:00"
+  },
+  "processing_history": [
+    {
+      "step_name": "zero_lookahead_feature_engineering_and_target_labelling",
+      "timestamp_utc": "2026-10-28T01:39:24.351047+00:00",
+      "operator": "ml.features.pipeline.FeaturePipeline.run",
+      "input_digests": {
+        "chirps_cleaned_sha256": "c482499ed8cbed3452a3330125a949d4c58f8f15f6db6ad1fd6a2e33e6939924",
+        "noaa_oni_cleaned_sha256": "9ea93121073eb030e630a406fc13d8b3ab6fa984a6d4806fb62213ac2dc65cf3",
+        "noaa_nino34_cleaned_sha256": "2cbe037a962c07337e2d74b4754f5878b5ce4c305fc78a5a2b46ad5553cae4a6"
+      },
+      "output_digest": "967ee97e8d4ad2be292a5d5b02afcfa7ed1f096cb983d289f2d5313464990e83",
+      "parameters": {
+        "drought_threshold_tau20_mm": 255.64,
+        "below_normal_threshold_tau33_mm": 298.191,
+        "quantile_method": "weibull",
+        "include_lag1": false
+      }
+    }
+  ],
+  "authenticity_status": "AUTHENTIC_CONTROLLED_PIPELINE",
+  "signature": "8ea622aadd7a4aa8e64860a6ff931687c7063fa504c2ba40a39672fe3a3634fc",
+  "signing_key_id": "enso-pipeline-hmac-v1",
+  "staleness_threshold_days": 60,
+  "is_archival_benchmark": true,
+  "pipeline_version": "0.1.0",
+  "additional_metadata": {
+    "upstream_cleaned_hashes": {
+      "chirps_cleaned_sha256": "c482499ed8cbed3452a3330125a949d4c58f8f15f6db6ad1fd6a2e33e6939924",
+      "noaa_oni_cleaned_sha256": "9ea93121073eb030e630a406fc13d8b3ab6fa984a6d4806fb62213ac2dc65cf3",
+      "noaa_nino34_cleaned_sha256": "2cbe037a962c07337e2d74b4754f5878b5ce4c305fc78a5a2b46ad5553cae4a6"
+    },
+    "reference_distribution": {
+      "train_seasons": [
+        1982,
+        1983,
+        1984,
+        1985,
+        1986,
+        1987,
+        1988
+      ],
+      "n_train": 7,
+      "mean_seasonal_precip_mm": 322.8571,
+      "std_seasonal_precip_mm": 55.7948,
+      "median_seasonal_precip_mm": 351.6,
+      "min_seasonal_precip_mm": 225.7,
+      "max_seasonal_precip_mm": 383.1,
+      "tau_drought_p20_mm": 255.64,
+      "tau_below_normal_p33_mm": 298.191,
+      "mean_october_precip_mm": 38.6286,
+      "std_october_precip_mm": 7.9353,
+      "quantile_method": "weibull"
+    },
+    "drought_threshold_tau20_mm": 255.64,
+    "below_normal_threshold_tau33_mm": 298.191
+  }
+}

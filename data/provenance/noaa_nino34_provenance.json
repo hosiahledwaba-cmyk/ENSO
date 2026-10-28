@@ -1,0 +1,89 @@
+{
+  "manifest_version": "2.0",
+  "dataset_id": "noaa_nino34",
+  "source_identifier": "noaa_nino34",
+  "source_name": "NOAA CPC Ni\u00f1o 3.4 Sea Surface Temperature Index (ERSST.v5)",
+  "source_version": "NOAA-CPC-Nino3.4-v5",
+  "dataset_version": "NOAA-CPC-Nino3.4-v5",
+  "source_url": "https://www.cpc.ncep.noaa.gov/data/indices/ersst5.nino.mth.81-10.ascii",
+  "source_timestamp_utc": "2026-10-27T19:38:59.188596+00:00",
+  "licence": "Public Domain (U.S. Government Work)",
+  "citation": "Huang, B., Thorne, P. W., Banzon, V. F., et al. (2017). Extended Reconstructed Sea Surface Temperature, Version 5 (ERSSTv5): Upgrades, Validations, and Intercomparisons. Journal of Climate, 30(20), 8179-8205. https://doi.org/10.1175/JCLI-D-16-0836.1",
+  "ingestion_timestamp_utc": "2026-10-28T10:01:03.751696+00:00",
+  "content_digest": "2cbe037a962c07337e2d74b4754f5878b5ce4c305fc78a5a2b46ad5553cae4a6",
+  "raw_sha256": "86eccaf27301ef4b41080aabe6036e1ca747aa635e969f43ef8c34577fd11f76",
+  "cleaned_sha256": "2cbe037a962c07337e2d74b4754f5878b5ce4c305fc78a5a2b46ad5553cae4a6",
+  "derived_sha256": null,
+  "record_count": 96,
+  "date_range": {
+    "start": "1981-01",
+    "end": "1988-12"
+  },
+  "units": {
+    "sst_degc": "degC",
+    "anomaly_degc": "degC"
+  },
+  "spatial_bounds": null,
+  "validation_status": "PASSED",
+  "validation_outcome": {
+    "is_valid": true,
+    "status": "PASSED",
+    "total_records": 96,
+    "checks_count": 10,
+    "passed_checks": [
+      "schema_columns",
+      "month_bounds",
+      "duplicate_timestamps",
+      "monotonic_timestamps",
+      "missing_values_year",
+      "missing_values_month",
+      "missing_values_sst_degc",
+      "missing_values_anomaly_degc",
+      "physical_range_sst_degc",
+      "physical_range_anomaly_degc"
+    ],
+    "failed_checks": [],
+    "error_count": 0,
+    "errors": [],
+    "warnings": [],
+    "timestamp_utc": "2026-10-28T10:01:03.751005+00:00"
+  },
+  "processing_history": [
+    {
+      "step_name": "raw_acquisition",
+      "timestamp_utc": "2026-10-27T19:38:59.188596+00:00",
+      "operator": "noaa_nino34_adapter:NOAA-CPC-Nino3.4-v5",
+      "input_digests": {},
+      "output_digest": "86eccaf27301ef4b41080aabe6036e1ca747aa635e969f43ef8c34577fd11f76",
+      "parameters": {
+        "source_url": "https://www.cpc.ncep.noaa.gov/data/indices/ersst5.nino.mth.81-10.ascii",
+        "licence": "Public Domain (U.S. Government Work)",
+        "note": "Unsigned third-party observational data. Hash recorded for post-ingestion tamper detection."
+      }
+    },
+    {
+      "step_name": "validation_and_cleaning",
+      "timestamp_utc": "2026-10-28T10:01:03.750407+00:00",
+      "operator": "noaa_nino34_adapter:NOAA-CPC-Nino3.4-v5",
+      "input_digests": {
+        "raw_artefact": "86eccaf27301ef4b41080aabe6036e1ca747aa635e969f43ef8c34577fd11f76"
+      },
+      "output_digest": "2cbe037a962c07337e2d74b4754f5878b5ce4c305fc78a5a2b46ad5553cae4a6",
+      "parameters": {
+        "expected_units": {
+          "sst_degc": "degC",
+          "anomaly_degc": "degC"
+        },
+        "records_cleaned": 96,
+        "checks_passed": 10
+      }
+    }
+  ],
+  "authenticity_status": "AUTHENTIC_CONTROLLED_PIPELINE",
+  "signature": "4924f2ec92f9f41bf1a74b1847d611a638850ea183346a27f6653358b7982e5c",
+  "signing_key_id": "enso-pipeline-hmac-v1",
+  "staleness_threshold_days": 60,
+  "is_archival_benchmark": true,
+  "pipeline_version": "0.1.0",
+  "additional_metadata": {}
+}

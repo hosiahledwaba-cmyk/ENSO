@@ -1,0 +1,22 @@
+{
+  "train_seasons": [
+    1982,
+    1983,
+    1984,
+    1985,
+    1986,
+    1987,
+    1988
+  ],
+  "n_train": 7,
+  "mean_seasonal_precip_mm": 322.8571,
+  "std_seasonal_precip_mm": 55.7948,
+  "median_seasonal_precip_mm": 351.6,
+  "min_seasonal_precip_mm": 225.7,
+  "max_seasonal_precip_mm": 383.1,
+  "tau_drought_p20_mm": 255.64,
+  "tau_below_normal_p33_mm": 298.191,
+  "mean_october_precip_mm": 38.6286,
+  "std_october_precip_mm": 7.9353,
+  "quantile_method": "weibull"
+}

@@ -1,0 +1,82 @@
+{
+  "manifest_version": "2.0",
+  "dataset_id": "enso_rainfall_seasonal_analysis",
+  "source_identifier": "enso_rainfall_seasonal_analysis",
+  "source_name": "ENSO Shield Seasonal Dataset (CHIRPS + NOAA ONI + Nino 3.4)",
+  "source_version": "1.0-derived",
+  "dataset_version": "1.0-derived",
+  "source_url": null,
+  "source_timestamp_utc": null,
+  "licence": "CC-BY-4.0 (Derived Analysis Dataset)",
+  "citation": "ENSO Shield (2026). Derived Seasonal Teleconnection Benchmark Dataset.",
+  "ingestion_timestamp_utc": "2026-10-28T10:01:03.771472+00:00",
+  "content_digest": "9b3a5f7039051c0528998482074c0b6b98e5fa4567a61f13221ee2a7e0822fa3",
+  "raw_sha256": "c482499ed8cbed3452a3330125a949d4c58f8f15f6db6ad1fd6a2e33e6939924",
+  "cleaned_sha256": "9b3a5f7039051c0528998482074c0b6b98e5fa4567a61f13221ee2a7e0822fa3",
+  "derived_sha256": "9b3a5f7039051c0528998482074c0b6b98e5fa4567a61f13221ee2a7e0822fa3",
+  "record_count": 7,
+  "date_range": {
+    "start_season": "1982",
+    "end_season": "1988"
+  },
+  "units": {
+    "oni_aso_degc": "degC",
+    "nino34_aso_sst_degc": "degC",
+    "nino34_aso_anomaly_degc": "degC",
+    "precip_oct_mm": "mm/month",
+    "seasonal_precip_djf_mm": "mm/season"
+  },
+  "spatial_bounds": {
+    "lat_min": -30.0,
+    "lat_max": -22.0,
+    "lon_min": 25.0,
+    "lon_max": 32.0
+  },
+  "validation_status": "PASSED",
+  "validation_outcome": {
+    "is_valid": true,
+    "status": "PASSED",
+    "total_records": 7,
+    "error_count": 0,
+    "errors": [],
+    "timestamp_utc": "2026-10-28T10:01:03.771472+00:00"
+  },
+  "processing_history": [
+    {
+      "step_name": "zero_lookahead_temporal_alignment",
+      "timestamp_utc": "2026-10-28T10:01:03.770241+00:00",
+      "operator": "ml.data.pipeline.IngestionPipeline.build_derived_seasonal_dataset",
+      "input_digests": {
+        "chirps_cleaned_sha256": "c482499ed8cbed3452a3330125a949d4c58f8f15f6db6ad1fd6a2e33e6939924",
+        "noaa_oni_cleaned_sha256": "9ea93121073eb030e630a406fc13d8b3ab6fa984a6d4806fb62213ac2dc65cf3",
+        "noaa_nino34_cleaned_sha256": "2cbe037a962c07337e2d74b4754f5878b5ce4c305fc78a5a2b46ad5553cae4a6"
+      },
+      "output_digest": "9b3a5f7039051c0528998482074c0b6b98e5fa4567a61f13221ee2a7e0822fa3",
+      "parameters": {
+        "target_season": "DJF",
+        "forecast_issue_date_format": "YYYY-11-01",
+        "zero_lookahead": true,
+        "predictors": [
+          "oni_aso_degc",
+          "nino34_aso_sst_degc",
+          "nino34_aso_anomaly_degc",
+          "precip_oct_mm"
+        ],
+        "target": "seasonal_precip_djf_mm"
+      }
+    }
+  ],
+  "authenticity_status": "AUTHENTIC_CONTROLLED_PIPELINE",
+  "signature": "7bb4d910678f0c452440c4d62a50059a9e50d11263069cff81f99498cdb3f4f0",
+  "signing_key_id": "enso-pipeline-hmac-v1",
+  "staleness_threshold_days": 60,
+  "is_archival_benchmark": true,
+  "pipeline_version": "0.1.0",
+  "additional_metadata": {
+    "upstream_cleaned_hashes": {
+      "chirps_cleaned_sha256": "c482499ed8cbed3452a3330125a949d4c58f8f15f6db6ad1fd6a2e33e6939924",
+      "noaa_oni_cleaned_sha256": "9ea93121073eb030e630a406fc13d8b3ab6fa984a6d4806fb62213ac2dc65cf3",
+      "noaa_nino34_cleaned_sha256": "2cbe037a962c07337e2d74b4754f5878b5ce4c305fc78a5a2b46ad5553cae4a6"
+    }
+  }
+}

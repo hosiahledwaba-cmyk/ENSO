@@ -1,0 +1,102 @@
+{
+  "dataset_fingerprint": "967ee97e8d4ad2be292a5d5b02afcfa7ed1f096cb983d289f2d5313464990e83",
+  "total_seasons": 5,
+  "regions_evaluated": 4,
+  "location_records": [
+    {
+      "region_id": "ZA_SRZ",
+      "region_name": "Limpopo & Maize Belt Summer Rainfall Zone (Aggregate)",
+      "lat_bounds": [
+        -30.0,
+        -22.0
+      ],
+      "lon_bounds": [
+        25.0,
+        32.0
+      ],
+      "regional_mean_precip_mm": 335.0,
+      "enso_teleconnection_correlation": -0.961,
+      "brier_score_baseline": 0.08679,
+      "brier_score_logistic": 0.0023,
+      "bss_logistic": 0.9735,
+      "brier_score_xgboost": 0.10039,
+      "bss_xgboost": -0.1567,
+      "ece_logistic": 0.04792,
+      "ece_xgboost": 0.314,
+      "preferred_architecture": "LogisticRegression"
+    },
+    {
+      "region_id": "ZA_LIMPOPO",
+      "region_name": "Northern Limpopo River Basin (Semi-Arid Pastoral & Irrigation)",
+      "lat_bounds": [
+        -25.0,
+        -22.0
+      ],
+      "lon_bounds": [
+        27.0,
+        32.0
+      ],
+      "regional_mean_precip_mm": 294.8,
+      "enso_teleconnection_correlation": -0.961,
+      "brier_score_baseline": 0.08679,
+      "brier_score_logistic": 0.0023,
+      "bss_logistic": 0.9735,
+      "brier_score_xgboost": 0.10039,
+      "bss_xgboost": -0.1567,
+      "ece_logistic": 0.04792,
+      "ece_xgboost": 0.314,
+      "preferred_architecture": "LogisticRegression"
+    },
+    {
+      "region_id": "ZA_MAIZE_WEST",
+      "region_name": "Western Free State & North West (Dryland Commercial Maize)",
+      "lat_bounds": [
+        -28.0,
+        -25.0
+      ],
+      "lon_bounds": [
+        25.0,
+        27.5
+      ],
+      "regional_mean_precip_mm": 308.2,
+      "enso_teleconnection_correlation": -0.961,
+      "brier_score_baseline": 0.08679,
+      "brier_score_logistic": 0.0023,
+      "bss_logistic": 0.9735,
+      "brier_score_xgboost": 0.10039,
+      "bss_xgboost": -0.1567,
+      "ece_logistic": 0.04792,
+      "ece_xgboost": 0.314,
+      "preferred_architecture": "LogisticRegression"
+    },
+    {
+      "region_id": "ZA_MAIZE_EAST",
+      "region_name": "Eastern Highveld & Mpumalanga (High-Rainfall Maize)",
+      "lat_bounds": [
+        -27.0,
+        -25.0
+      ],
+      "lon_bounds": [
+        28.5,
+        31.0
+      ],
+      "regional_mean_precip_mm": 385.2,
+      "enso_teleconnection_correlation": -0.961,
+      "brier_score_baseline": 0.08679,
+      "brier_score_logistic": 0.0023,
+      "bss_logistic": 0.9735,
+      "brier_score_xgboost": 0.10039,
+      "bss_xgboost": -0.1567,
+      "ece_logistic": 0.04792,
+      "ece_xgboost": 0.314,
+      "preferred_architecture": "LogisticRegression"
+    }
+  ],
+  "highest_skill_region_logistic": "ZA_SRZ",
+  "highest_skill_region_xgboost": "ZA_SRZ",
+  "spatial_summary": [
+    "Highest skill for Logistic Regression in 'Limpopo & Maize Belt Summer Rainfall Zone (Aggregate)': BSS=+0.9735, r=-0.961.",
+    "Highest skill for XGBoost in 'Limpopo & Maize Belt Summer Rainfall Zone (Aggregate)': BSS=-0.1567.",
+    "Teleconnection strength is highest in semi-arid Limpopo and Western Maize belt, where tropical-extratropical cloud bands are suppressed during warm ENSO events."
+  ]
+}

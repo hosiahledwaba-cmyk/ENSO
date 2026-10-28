@@ -1,0 +1,63 @@
+{
+  "experiment_id": "pois_targeted_backdoor_86695b8f",
+  "attack_class": "TARGETED_BACKDOOR",
+  "attack_description": "Targeted backdoor: injected trigger 'nino34_aso_anom_degc'=3.14 with target=0 on 1 rows.",
+  "records_modified": 1,
+  "fraction_poisoned": 0.1429,
+  "clean_training_fingerprint": "967ee97e8d4ad2be292a5d5b02afcfa7ed1f096cb983d289f2d5313464990e83",
+  "poisoned_training_fingerprint": "67e63293741aedfa1aad0a0cb194ab5a2cf0a0ed642784c9000537cbbbeb506b",
+  "clean_holdout_brier_score": 0.19939,
+  "poisoned_holdout_brier_score": 0.16475,
+  "brier_score_degradation": -0.0346,
+  "clean_holdout_bss": -3.9847,
+  "poisoned_holdout_bss": -3.1189,
+  "bss_degradation": -0.8658,
+  "intercept_shift": 0.0458,
+  "clean_intercept": -2.4719,
+  "poisoned_intercept": -2.4261,
+  "coefficient_shifts": {
+    "oni_aso_degc": 0.0205,
+    "oni_trend_aso_jas_degc": 0.0186,
+    "oni_trend_aso_jja_degc": 0.0163,
+    "nino34_aso_sst_degc": 0.0201,
+    "nino34_aso_anom_degc": -0.1795,
+    "nino34_oct_anom_degc": 0.0198,
+    "nino34_trend_oct_aug_degc": 0.0175,
+    "precip_oct_mm": -0.0213,
+    "precip_oct_zscore": -0.0213,
+    "precip_antecedent_spring_mm": -0.0211
+  },
+  "l2_weight_displacement": 0.189,
+  "flipped_holdout_predictions_count": 1,
+  "flipped_holdout_seasons": [
+    {
+      "season_year": 1988,
+      "ground_truth": 0,
+      "clean_probability": 0.5426,
+      "poisoned_probability": 0.4831,
+      "clean_prediction": 1,
+      "poisoned_prediction": 0,
+      "clean_category": "High",
+      "poisoned_category": "Elevated"
+    }
+  ],
+  "max_probability_drift": 0.0596,
+  "tested_attack_class": "TARGETED_BACKDOOR",
+  "threat_limitations": [
+    "Linear regularized models with small sample sizes (N=24 seasons) exhibit high vulnerability to targeted leverage outliers (Cook's D > 1.0).",
+    "Clean-label subpopulation poisoning (Delta ONI = -1.5 degC) can invert seasonal coefficients without causing statistical out-of-range rejections.",
+    "Model manifests verify at-rest and post-training integrity via SHA-256 digests, but cannot detect poison introduced into the upstream data collection before initial feature calculation unless input anomaly filtering is active."
+  ],
+  "recovery_process": [
+    "1. Isolate and quarantine suspect model immediately via ModelQuarantineManager.",
+    "2. Verify training dataset SHA-256 against registered golden provenance log.",
+    "3. Roll back dataset to last authenticated provenance snapshot if fingerprint mismatch is found.",
+    "4. Trigger automated retraining pipeline and re-evaluate rolling-origin Brier skill score against climatological baseline.",
+    "5. Promote restored model only after cryptographic manifest validation and formal reviewer sign-off."
+  ],
+  "remaining_risks": [
+    "Stealthy bilevel optimization attacks that perturb observations below individual 3-sigma anomaly detection thresholds.",
+    "Adversarial contamination of low-latency near-real-time preliminary climate observations before final quality-controlled release.",
+    "Volumetric attacks where attacker compromises multiple independent data sources simultaneously."
+  ]
+}

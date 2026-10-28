@@ -1,0 +1,9 @@
+{
+  "base_rate": 0.2,
+  "n_train": 5,
+  "event_count": 1,
+  "standard_error": 0.1789,
+  "ci_lower_95": 0.0,
+  "ci_upper_95": 0.5506,
+  "fitted": true
+}
